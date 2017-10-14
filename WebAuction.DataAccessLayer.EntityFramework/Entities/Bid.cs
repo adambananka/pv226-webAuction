@@ -21,10 +21,10 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Entities
 
         public DateTime Time { get; set; }
 
-        [Range(0, double.MaxValue)]
-        public double BidAmount { get; set; }
+        [Range(typeof(decimal), "0", "999999999999")]
+        public decimal BidAmount { get; set; }
 
-        [Range(0, double.MaxValue)]
-        public double NewItemPrice { get; set; }
+        [Range(typeof(decimal), "0", "999999999999")]
+        public decimal NewItemPrice { get; set; }
     }
 }

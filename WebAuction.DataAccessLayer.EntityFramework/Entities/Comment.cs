@@ -7,7 +7,7 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Entities
     public class Comment
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         [ForeignKey(nameof(Auction))]
         public Guid AuctionId { get; set; }
@@ -20,7 +20,7 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Entities
         public virtual User User { get; set; }
 
         [ForeignKey(nameof(ParentComment))]
-        public Guid? ParentCommentId { get; set; }
+        public int? ParentCommentId { get; set; }
 
         public virtual Comment ParentComment { get; set; }
 

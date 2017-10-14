@@ -7,12 +7,12 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Entities
     public class Rating
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
-        [ForeignKey(nameof(User))]
-        public Guid UserId { get; set; }
+        [ForeignKey(nameof(Seller))]
+        public Guid SellerId { get; set; }
 
-        public virtual User User { get; set; }
+        public virtual User Seller { get; set; }
 
         [ForeignKey(nameof(Author))]
         public Guid AuthorId { get; set; }
@@ -21,9 +21,10 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Entities
 
         public DateTime Time { get; set; }
 
+        [Required]
         [Range(0, 5)]
-        public int Stars { get; set; } //alebo co teda dame?
+        public int Stars { get; set; }
 
-        public string Text { get; set; }
+        public string Feedback { get; set; }
     }
 }

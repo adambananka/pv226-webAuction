@@ -4,16 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{87C68240-7476-4D82-A8C6-FADA51BFDC70}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WebAuction.DataAccessLayer.EntityFramework</RootNamespace>
-    <AssemblyName>WebAuction.DataAccessLayer.EntityFramework</AssemblyName>
+    <ProjectGuid>{545F34A9-A7E4-4118-8B6C-BF6710BB41A0}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>WebAuction.CLI</RootNamespace>
+    <AssemblyName>WebAuction.CLI</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -48,32 +49,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Admin.cs" />
-    <Compile Include="Entities\Auction.cs" />
-    <Compile Include="Entities\Bid.cs" />
-    <Compile Include="Entities\Category.cs" />
-    <Compile Include="Entities\Comment.cs" />
-    <Compile Include="Entities\Item.cs" />
-    <Compile Include="Entities\Payment.cs" />
-    <Compile Include="Entities\Rating.cs" />
-    <Compile Include="Entities\User.cs" />
-    <Compile Include="Migrations\201710142205342_Initial.cs" />
-    <Compile Include="Migrations\201710142205342_Initial.Designer.cs">
-      <DependentUpon>201710142205342_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WebAuctionDbContext.cs" />
-    <Compile Include="Initializers\WebAuctionDbInitializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201710142205342_Initial.resx">
-      <DependentUpon>201710142205342_Initial.cs</DependentUpon>
-    </EmbeddedResource>
+    <ProjectReference Include="..\WebAuction.DataAccessLayer.EntityFramework\WebAuction.DataAccessLayer.EntityFramework.csproj">
+      <Project>{87C68240-7476-4D82-A8C6-FADA51BFDC70}</Project>
+      <Name>WebAuction.DataAccessLayer.EntityFramework</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

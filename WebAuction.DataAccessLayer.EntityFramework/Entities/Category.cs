@@ -7,8 +7,9 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Entities
     public class Category
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
+        [Required]
         [MaxLength(256)]
         public string Name { get; set; }
 

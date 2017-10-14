@@ -1,11 +1,15 @@
 ﻿using System.Data.Entity;
 using WebAuction.DataAccessLayer.EntityFramework.Entities;
+using WebAuction.DataAccessLayer.EntityFramework.Initializers;
 
 namespace WebAuction.DataAccessLayer.EntityFramework
 {
     public class WebAuctionDbContext : DbContext
     {
-        private const string ConnectionString = ""; //sem nieco
+        public WebAuctionDbContext() : base("WebAuctionConnectionString")
+        {
+            Database.SetInitializer(new WebAuctionDbInitializer());
+        }
 
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Auction> Auctions { get; set; }
@@ -16,10 +20,5 @@ namespace WebAuction.DataAccessLayer.EntityFramework
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<User> Users { get; set; }
-
-        public WebAuctionDbContext() : base(ConnectionString)
-        {
-            Database.SetInitializer(new WebAuctionDbInitializer());
-        }
     }
 }

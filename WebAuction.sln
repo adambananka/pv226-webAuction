@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAuction.DataAccessLayer.EntityFramework", "WebAuction.DataAccessLayer.EntityFramework\WebAuction.DataAccessLayer.EntityFramework.csproj", "{87C68240-7476-4D82-A8C6-FADA51BFDC70}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAuction.CLI", "WebAuction.CLI\WebAuction.CLI.csproj", "{545F34A9-A7E4-4118-8B6C-BF6710BB41A0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{87C68240-7476-4D82-A8C6-FADA51BFDC70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87C68240-7476-4D82-A8C6-FADA51BFDC70}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87C68240-7476-4D82-A8C6-FADA51BFDC70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{545F34A9-A7E4-4118-8B6C-BF6710BB41A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{545F34A9-A7E4-4118-8B6C-BF6710BB41A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{545F34A9-A7E4-4118-8B6C-BF6710BB41A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{545F34A9-A7E4-4118-8B6C-BF6710BB41A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

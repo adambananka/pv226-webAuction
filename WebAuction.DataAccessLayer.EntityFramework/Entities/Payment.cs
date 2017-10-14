@@ -9,18 +9,18 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Entities
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid Id { get; set; }
 
-        [ForeignKey(nameof(User))]
-        public Guid Userid { get; set; } //alebo Buyer?
+        [ForeignKey(nameof(Buyer))]
+        public Guid BuyerId { get; set; }
 
-        public virtual User User { get; set; }
+        public virtual User Buyer { get; set; }
 
         [ForeignKey(nameof(Auction))]
-        public Guid AuctionId { get; set; } //toto sme nemali v navrhu, ale ako by sme vedeli za co ta platba je? :D
+        public Guid AuctionId { get; set; }
 
         public virtual Auction Auction { get; set; }
 
-        [Range(0, double.MaxValue)]
-        public double Amount { get; set; }
+        [Range(typeof(decimal), "0", "99999999999999")]
+        public decimal Amount { get; set; }
 
         public DateTime Time { get; set; }
 

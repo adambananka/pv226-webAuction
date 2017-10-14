@@ -9,8 +9,15 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Entities
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid Id { get; set; }
 
-        [MaxLength(256)]
-        public string Name { get; set; }
+        [Required]
+        [StringLength(100)]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
 
         [MaxLength(1024)]
         public string Address { get; set; }
@@ -19,7 +26,7 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Entities
         public string Email { get; set; }
 
         [Phone]
-        public string Contact { get; set; } //takto?
+        public string Phone { get; set; }
 
         public string Login { get; set; }
 

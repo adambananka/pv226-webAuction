@@ -9,11 +9,12 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Entities
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid Id { get; set; }
 
+        [Required]
         [MaxLength(256)]
-        public string Name { get; set; } //treba davat vsade/niekde tag Required ?
+        public string Name { get; set; } 
 
-        public string Login { get; set; } //nemali sme, treba?
+        public string Login { get; set; } 
 
-        public string Password { get; set; } //nemali sme, treba?
+        public string Password { get; set; } 
     }
 }

@@ -10,16 +10,12 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Entities
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid Id { get; set; }
 
+        [Required]
         [MaxLength(256)]
         public string Name { get; set; }
 
-        [ForeignKey(nameof(Seller))]
-        public Guid Sellerid { get; set; }
-
-        public virtual User Seller { get; set; }
-
         [ForeignKey(nameof(Category))]
-        public Guid CategoryId { get; set; }
+        public int CategoryId { get; set; }
 
         public virtual Category Category { get; set; }
 
