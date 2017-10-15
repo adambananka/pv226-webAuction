@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -30,6 +31,8 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Entities
 
         [Range(typeof(decimal), "0", "999999999999")]
         public decimal BuyoutPrice { get; set; }
+
+        public virtual List<Bid> Bids { get; set; }
 
         [Required]
         public DateTime StartTime { get; set; }

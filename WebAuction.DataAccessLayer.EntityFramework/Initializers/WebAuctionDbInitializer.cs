@@ -11,8 +11,8 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
         {
             var rnd = new Random();
 
-            return new TimeSpan(rnd.Next(6,22), rnd.Next(0,59), rnd.Next(0,59));
-        } 
+            return new TimeSpan(rnd.Next(6, 22), rnd.Next(0, 59), rnd.Next(0, 59));
+        }
 
         protected override void Seed(WebAuctionDbContext context)
         {
@@ -156,6 +156,7 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
                 ActualPrice = 1000,
                 MinimalBid = 100,
                 BuyoutPrice = 100000,
+                Bids = null,
                 StartTime = DateTime.Now.AddDays(-5).Date + GetRandomDayTime(),
                 EndTime = DateTime.Now.AddDays(2).Date + new TimeSpan(15, 0, 0),
                 SellTime = null,
@@ -174,8 +175,9 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
                 ActualPrice = 1000,
                 MinimalBid = 50,
                 BuyoutPrice = 12500,
+                Bids = null,
                 StartTime = DateTime.Now.AddDays(-1).Date + GetRandomDayTime(),
-                EndTime = DateTime.Now.AddDays(6).Date + new TimeSpan(12,0,0),
+                EndTime = DateTime.Now.AddDays(6).Date + new TimeSpan(12, 0, 0),
                 SellTime = null,
                 HandoverOptions = "Can be delivered by raven.",
                 Sold = false,
@@ -192,6 +194,7 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
                 ActualPrice = 3500,
                 MinimalBid = 10,
                 BuyoutPrice = 30000,
+                Bids = null,
                 StartTime = DateTime.Now.AddDays(-2).Date + GetRandomDayTime(),
                 EndTime = DateTime.Now.AddDays(5).Date + new TimeSpan(18, 0, 0),
                 SellTime = null,
@@ -210,6 +213,7 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
                 ActualPrice = 2000,
                 MinimalBid = 100,
                 BuyoutPrice = 700000,
+                Bids = null,
                 StartTime = DateTime.Now.AddDays(-3).Date + GetRandomDayTime(),
                 EndTime = DateTime.Now.AddDays(1).Date + new TimeSpan(16, 0, 0),
                 SellTime = null,
@@ -229,6 +233,7 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
                 ActualPrice = 1000,
                 MinimalBid = 30,
                 BuyoutPrice = 55000,
+                Bids = null,
                 StartTime = DateTime.Now.AddDays(-8).Date + GetRandomDayTime(),
                 EndTime = DateTime.Now.AddDays(-5).Date + new TimeSpan(15, 0, 0),
                 SellTime = tachyonSellTime,
@@ -247,14 +252,14 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
             {
                 Id = Guid.NewGuid(),
                 Time = blueStuffAuction.StartTime.AddHours(15),
-                Auction = blueStuffAuction,
-                AuctionId = blueStuffAuction.Id,
                 BuyerId = barryAllen.Id,
                 Buyer = barryAllen,
                 BidAmount = blueStuffAuction.MinimalBid,
                 NewItemPrice = blueStuffAuction.ActualPrice + blueStuffAuction.MinimalBid
             };
             context.Bids.AddOrUpdate(bid => bid.Id, bid1);
+            var a = context.Auctions.Find(blueStuffAuction.Id);
+            a?.Bids.Add(bid1);
 
             #endregion
 
@@ -289,6 +294,7 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
                 Time = tachyonSellTime.AddMinutes(15)
             };
             context.Ratings.AddOrUpdate(rating => rating.Id, rating1);
+
             #endregion
 
             #region Comments

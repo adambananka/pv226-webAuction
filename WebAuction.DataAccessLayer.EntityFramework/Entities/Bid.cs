@@ -9,11 +9,6 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Entities
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid Id { get; set; }
 
-        [ForeignKey(nameof(Auction))]
-        public Guid AuctionId { get; set; }
-
-        public virtual Auction Auction { get; set; }
-
         [ForeignKey(nameof(Buyer))]
         public Guid BuyerId { get; set; }
 
