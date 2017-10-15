@@ -12,11 +12,10 @@ namespace WebAuction.CLI
             {
                 foreach (var category in db.Categories)
                 {
-                    Console.WriteLine($"{category.Id} - {category.Name}");
-                    Console.WriteLine("\t" + category.Description);
+                    Console.Write($"{category.Id} - {category.Name} - ");
+                    Console.WriteLine("[" + category.Description + "]");
                 }
             }
-            Console.ReadKey();
         }
     }
 }

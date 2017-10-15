@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using WebAuction.DataAccessLayer.EntityFramework.Validation;
 
 namespace WebAuction.DataAccessLayer.EntityFramework.Entities
 {
@@ -21,10 +22,10 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Entities
 
         public DateTime Time { get; set; }
 
-        [Range(typeof(decimal), "0", "999999999999")]
+        [PositiveDecimal]
         public decimal BidAmount { get; set; }
 
-        [Range(typeof(decimal), "0", "999999999999")]
+        [PositiveDecimal]
         public decimal NewItemPrice { get; set; }
     }
 }
