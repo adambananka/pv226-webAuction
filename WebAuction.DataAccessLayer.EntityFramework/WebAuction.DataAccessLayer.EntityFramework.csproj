@@ -55,6 +55,7 @@
     <Compile Include="Entities\Comment.cs" />
     <Compile Include="Entities\Item.cs" />
     <Compile Include="Entities\Payment.cs" />
+    <Compile Include="Entities\Photo.cs" />
     <Compile Include="Entities\Rating.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

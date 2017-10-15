@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -9,16 +8,6 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Entities
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid Id { get; set; }
-
-        [ForeignKey(nameof(Seller))]
-        public Guid SellerId { get; set; }
-
-        public virtual User Seller { get; set; }
-
-        [ForeignKey(nameof(Item))]
-        public Guid ItemId { get; set; }
-
-        public virtual Item Item { get; set; }
 
         [Range(typeof(decimal), "0", "999999999999")]
         public decimal StartingPrice { get; set; }
@@ -31,8 +20,6 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Entities
 
         [Range(typeof(decimal), "0", "999999999999")]
         public decimal BuyoutPrice { get; set; }
-
-        public virtual List<Bid> Bids { get; set; }
 
         [Required]
         public DateTime StartTime { get; set; }

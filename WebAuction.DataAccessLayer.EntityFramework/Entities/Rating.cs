@@ -14,10 +14,10 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Entities
 
         public virtual User Seller { get; set; }
 
-        [ForeignKey(nameof(Author))]
-        public Guid AuthorId { get; set; }
+        //[ForeignKey(nameof(Author))]
+        //public Guid AuthorId { get; set; }
 
-        public virtual User Author { get; set; }
+        //public virtual User Author { get; set; }
 
         public DateTime Time { get; set; }
 

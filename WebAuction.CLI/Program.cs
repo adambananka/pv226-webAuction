@@ -16,6 +16,7 @@ namespace WebAuction.CLI
                     Console.WriteLine("\t" + category.Description);
                 }
             }
+            Console.ReadKey();
         }
     }
 }

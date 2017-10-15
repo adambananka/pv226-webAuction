@@ -24,7 +24,7 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Entities
 
         public DateTime Time { get; set; }
 
-        [Range(100000000000, 9999999999999999999)]
-        public int CreditCardNumber { get; set; }
+        [Range(100000000000, 9999999999999999)]
+        public long CreditCardNumber { get; set; }
     }
 }

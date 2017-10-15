@@ -6,7 +6,7 @@ namespace WebAuction.DataAccessLayer.EntityFramework
 {
     public class WebAuctionDbContext : DbContext
     {
-        public WebAuctionDbContext() : base("WebAuctionConnectionString")
+        public WebAuctionDbContext() : base("WebAuctionDB")
         {
             Database.SetInitializer(new WebAuctionDbInitializer());
         }
@@ -18,6 +18,7 @@ namespace WebAuction.DataAccessLayer.EntityFramework
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<Payment> Payments { get; set; }
+        public DbSet<Photo> Photos { get; set; }
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<User> Users { get; set; }
     }

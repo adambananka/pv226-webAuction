@@ -19,8 +19,16 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Entities
 
         public virtual Category Category { get; set; }
 
-        public string Description { get; set; }
+        [ForeignKey(nameof(Seller))]
+        public Guid SellerId { get; set; }
 
-        public Collection<byte[]> Photos { get; set; } //alebo ako inak?
+        public virtual User Seller { get; set; }
+
+        [ForeignKey(nameof(Auction))]
+        public Guid AuctionId { get; set; }
+
+        public virtual Auction Auction { get; set; }
+
+        public string Description { get; set; }
     }
 }
