@@ -6,18 +6,16 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Entities
 {
     public class User
     {
+        [NotMapped]
+        public string TableName { get; set; } = nameof(WebAuctionDbContext.Users);
+
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid Id { get; set; }
 
         [Required]
-        [StringLength(100)]
-        [Display(Name = "First Name")]
-        public string FirstName { get; set; }
-
-        [Required]
-        [StringLength(100)]
-        [Display(Name = "Last Name")]
-        public string LastName { get; set; }
+        [StringLength(128)]
+        [Display(Name = "Full Name")]
+        public string Name { get; set; }
 
         [MaxLength(1024)]
         public string Address { get; set; }
@@ -28,11 +26,15 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Entities
         [Phone]
         public string Phone { get; set; }
 
+        public bool IsAdmin { get; set; }
+
+        [Required, StringLength(64)]
         public string Login { get; set; }
 
-        public string Password { get; set; }
+        [Required, StringLength(64)]
+        public string PasswordHash { get; set; }
 
-        [NotMapped]
-        public double Rating { get; set; }
+        [Required, StringLength(64)]
+        public string PasswordSal { get; set; }
     }
 }
