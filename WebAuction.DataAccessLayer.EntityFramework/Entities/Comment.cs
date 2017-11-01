@@ -6,6 +6,9 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Entities
 {
     public class Comment
     {
+        [NotMapped]
+        public string TableName { get; set; } = nameof(WebAuctionDbContext.Comments);
+
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
@@ -19,13 +22,10 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Entities
 
         public virtual User User { get; set; }
 
-        [ForeignKey(nameof(ParentComment))]
-        public int? ParentCommentId { get; set; }
-
-        public virtual Comment ParentComment { get; set; }
-
         public DateTime Time { get; set; }
 
+        [Required]
+        [MaxLength(1024)]
         public string Text { get; set; }
     }
 }

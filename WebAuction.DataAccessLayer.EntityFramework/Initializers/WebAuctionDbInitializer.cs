@@ -16,45 +16,31 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
 
         protected override void Seed(WebAuctionDbContext context)
         {
-            #region Admins
-
-            var adam = new Admin
-            {
-                Id = Guid.Parse("66e82542-33e6-4cc1-b40b-61f7845a406b"),
-                Name = "Adam",
-                Login = "adam",
-                Password = "AdamJePan"
-            };
-            var stevo = new Admin
-            {
-                Id = Guid.Parse("d5b64671-5687-4b44-817b-6a5ce0a5521a"),
-                Name = "Stevo",
-                Login = "stevo",
-                Password = "StevoJePan"
-            };
-            context.Admins.AddOrUpdate(admin => admin.Id, adam, stevo);
-
-            #endregion
-
             #region Categories
 
             var electro = new Category
             {
                 Id = 1,
                 Name = "Electronics",
-                Description = "Smartphones, laptops and other electronic devices."
+                Description = "Smartphones, laptops and other electronic devices.",
+                ParentId = null,
+                Parent = null
             };
             var jewelry = new Category
             {
                 Id = 2,
                 Name = "Jewelry",
-                Description = "Rings, necklaces...all shiny stuff."
+                Description = "Rings, necklaces...all shiny stuff.",
+                ParentId = null,
+                Parent = null
             };
             var art = new Category
             {
                 Id = 3,
                 Name = "Art",
-                Description = "Paintings, statues and more strange things."
+                Description = "Paintings, statues and more strange things.",
+                ParentId = null,
+                Parent = null
             };
             context.Categories.AddOrUpdate(category => category.Id, art, electro, jewelry);
 
@@ -62,49 +48,65 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
 
             #region Users
 
+            var admin = new User
+            {
+                Id = Guid.Parse("66e82542-33e6-4cc1-b40b-61f7845a406b"),
+                Name = "I am the admin",
+                Login = "admin",
+                PasswordHash = "Password1",
+                PasswordSal = "Pa$$w0rd1"
+            };
+
             var jonSnow = new User
             {
                 Id = Guid.Parse("65a9dcb3-d290-4876-b284-47c8dbc7cfc5"),
-                FirstName = "Jon",
-                LastName = "Snow",
+                Name = "Jon Snow",
                 Address = "Winterfell",
                 Email = "youknow@nothing.ws",
                 Phone = "4527453652",
                 Login = "lordCommander",
-                Password = "bastard75684"
+                PasswordHash = "bastard",
+                PasswordSal = "123tard"
             };
             var waltWhite = new User
             {
                 Id = Guid.Parse("23ba41d2-2f82-430d-87b3-9e2e145be7c7"),
-                FirstName = "Walter",
-                LastName = "White",
+                Name = "Walter White",
                 Address = "Albaquerque",
                 Email = "heisenberg@bluestuff.com",
                 Phone = "7524943851",
                 Login = "methBoss737",
-                Password = "lungCancerSucks"
+                PasswordHash = "lungCancerSucks",
+                PasswordSal = "lungCancer12345"
             };
             var barryAllen = new User
             {
                 Id = Guid.Parse("5d1114de-4ede-4550-b6ae-a47923a8169f"),
-                FirstName = "Barry",
-                LastName = "Allen",
+                Name = "Barry Allen",
                 Address = "Central City",
                 Email = "flash@starlabs.com",
                 Phone = "9763425842",
                 Login = "redStreak77",
-                Password = "runBarryRun"
+                PasswordHash = "runBarryRun",
+                PasswordSal = "runBarry123"
             };
-            context.Users.AddOrUpdate(user => user.Id, jonSnow, waltWhite, barryAllen);
+            context.Users.AddOrUpdate(user => user.Id, admin, jonSnow, waltWhite, barryAllen);
 
             #endregion
 
             #region Auctions
 
-            var longClawStartTime = DateTime.Now.AddDays(-5).Date + GetRandomDayTime();
+            var longclawStartTime = DateTime.Now.AddDays(-5).Date + GetRandomDayTime();
             var longclawAuction = new Auction
             {
                 Id = Guid.Parse("0558b662-2aa8-438e-928c-571adb8b241b"),
+                Name = "Longclaw - best auction ever",
+                Description = "A big sword",
+                PhotoUri = @"\Content\",
+                CategoryId = art.Id,
+                Category = art,
+                SellerId = jonSnow.Id,
+                Seller = jonSnow,
                 StartingPrice = 1000,
                 ActualPrice = 1000,
                 MinimalBid = 100,
@@ -114,11 +116,17 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
                 SellTime = null,
                 HandoverOptions = "Come and take it.(it is obviously too heavy for raven, don't you think?)",
                 Sold = false,
-                DisplayCount = 987
+                DisplayCount = 987,
             };
             var melsNeckAuction = new Auction
             {
                 Id = Guid.Parse("08f38899-9eb6-48e3-b177-2cb6907b58c1"),
+                Name = "Melisandre's necklace",
+                Description = "She forgot it near the bath and some strange veeery old lady wanted to stole it.",
+                CategoryId = jewelry.Id,
+                Category = jewelry,
+                SellerId = jonSnow.Id,
+                Seller = jonSnow,
                 StartingPrice = 1000,
                 ActualPrice = 1000,
                 MinimalBid = 50,
@@ -133,6 +141,12 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
             var blueStuffAuction = new Auction
             {
                 Id = Guid.Parse("92d7feb4-13e8-431d-9ca7-589e55d721ed"),
+                Name = "Blue crystal",
+                Description = "Best crystal you ever try. Pure. Blue. Great.",
+                CategoryId = art.Id,
+                Category = art,
+                SellerId = waltWhite.Id,
+                Seller = waltWhite,
                 StartingPrice = 3000,
                 ActualPrice = 3500,
                 MinimalBid = 10,
@@ -147,6 +161,12 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
             var oldSuitAuction = new Auction
             {
                 Id = Guid.Parse("d481c797-0e21-49a7-9672-6ec9a2b08c87"),
+                Name = "Flash's old suit",
+                Description = "Little bit older but preserved, red, no decorations, friction tolerance.",
+                CategoryId = art.Id,
+                Category = art,
+                SellerId = barryAllen.Id,
+                Seller = barryAllen,
                 StartingPrice = 2000,
                 ActualPrice = 2000,
                 MinimalBid = 100,
@@ -162,6 +182,12 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
             var tachyonAuction = new Auction
             {
                 Id = Guid.Parse("c7c8f702-5872-4200-bb78-269ae87336a7"),
+                Name = "Tachyon prototype",
+                Description = "Wearing it makes you run faster.",
+                CategoryId = electro.Id,
+                Category = electro,
+                SellerId = barryAllen.Id,
+                Seller = barryAllen,
                 StartingPrice = 1000,
                 ActualPrice = 1000,
                 MinimalBid = 30,
@@ -175,72 +201,6 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
             };
             context.Auctions.AddOrUpdate(auction => auction.Id, longclawAuction, melsNeckAuction, blueStuffAuction,
                 oldSuitAuction, tachyonAuction);
-
-            #endregion
-
-            #region Items
-
-            var longclaw = new Item
-            {
-                Id = Guid.Parse("c5ec7468-1d1f-4171-9f64-80dceec966b3"),
-                Name = "Longclaw",
-                CategoryId = art.Id,
-                Category = art,
-                SellerId = jonSnow.Id,
-                Seller = jonSnow,
-                AuctionId = longclawAuction.Id,
-                Auction = longclawAuction,
-                Description = "Valyrian steal sword"
-            };
-            var melsNeck = new Item
-            {
-                Id = Guid.Parse("e23c53e9-c7a0-44f4-a049-f62e195c9fdd"),
-                Name = "Melisandre's necklace",
-                CategoryId = jewelry.Id,
-                Category = jewelry,
-                SellerId = jonSnow.Id,
-                Seller = jonSnow,
-                AuctionId = melsNeckAuction.Id,
-                Auction = melsNeckAuction,
-                Description = "She forgot it near the bath and some strange veeery old lady wanted to stole it."
-            };
-            var blueStuff = new Item
-            {
-                Id = Guid.Parse("8767002b-449e-4dc3-b79d-fbf652b5c9bb"),
-                Name = "Blue crystal",
-                CategoryId = art.Id,
-                Category = art,
-                SellerId = waltWhite.Id,
-                Seller = waltWhite,
-                AuctionId = blueStuffAuction.Id,
-                Auction = blueStuffAuction,
-                Description = "Best crystal you ever try. Pure. Blue. Great."
-            };
-            var oldSuit = new Item
-            {
-                Id = Guid.Parse("88170f86-dec7-467b-91f1-1706c56a971a"),
-                Name = "Flash's old suit",
-                CategoryId = art.Id,
-                Category = art,
-                SellerId = barryAllen.Id,
-                Seller = barryAllen,
-                AuctionId = oldSuitAuction.Id,
-                Auction = oldSuitAuction,
-                Description = "Little bit older but preserved, red, no decorations, friction tolerance."
-            };
-            var tachyon = new Item
-            {
-                Id = Guid.Parse("d1d34e7b-b390-42e2-9b46-c661c65f8313"),
-                Name = "Tachyon prototype",
-                CategoryId = electro.Id,
-                Category = electro,
-                SellerId = barryAllen.Id,
-                Seller = barryAllen,
-                AuctionId = tachyonAuction.Id,
-                Auction = tachyonAuction,
-                Description = "Wearing it makes you run faster."
-            };
-            context.Items.AddOrUpdate(item => item.Id, longclaw, melsNeck, blueStuff, oldSuit, tachyon);
 
             #endregion
 
@@ -283,7 +243,7 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
                 Auction = tachyonAuction,
                 Amount = tachyonAuction.BuyoutPrice,
                 Time = tachyonSellTime,
-                CreditCardNumber = 1234567894536842
+                CreditCardNumber = "4539943109248883" // visa
             };
             context.Payments.AddOrUpdate(payment => payment.Id, payment1);
 
@@ -309,11 +269,9 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
             var rootComment1 = new Comment
             {
                 Id = 1,
-                Time = longClawStartTime.AddHours(2),
+                Time = longclawStartTime.AddHours(2),
                 Auction = longclawAuction,
                 AuctionId = longclawAuction.Id,
-                ParentComment = null,
-                ParentCommentId = null,
                 Text = "How many white walkers have you killed with this claw?",
                 User = waltWhite,
                 UserId = waltWhite.Id
@@ -321,22 +279,14 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
             var childComment1 = new Comment
             {
                 Id = 2,
-                Time = longClawStartTime.AddHours(3),
+                Time = longclawStartTime.AddHours(3),
                 Auction = longclawAuction,
                 AuctionId = longclawAuction.Id,
-                ParentComment = rootComment1,
-                ParentCommentId = rootComment1.Id,
                 Text = "Too many to count",
                 User = jonSnow,
                 UserId = jonSnow.Id
             };
             context.Comments.AddOrUpdate(comment => comment.Id, rootComment1, childComment1);
-
-            #endregion
-
-            #region photos
-
-            
 
             #endregion
 

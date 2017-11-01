@@ -7,6 +7,8 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Entities
 {
     public class Bid
     {
+        public string TableName { get; set; } = nameof(WebAuctionDbContext.Bids);
+
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid Id { get; set; }
 

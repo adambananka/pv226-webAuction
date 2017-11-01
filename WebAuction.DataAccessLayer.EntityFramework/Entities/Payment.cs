@@ -7,6 +7,8 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Entities
 {
     public class Payment
     {
+        public string TableName { get; set; } = nameof(WebAuctionDbContext.Payments);
+
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid Id { get; set; }
 
@@ -25,7 +27,7 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Entities
 
         public DateTime Time { get; set; }
 
-        [Range(100000000000, 9999999999999999)]
-        public long CreditCardNumber { get; set; }
+        [CreditCard]
+        public string CreditCardNumber { get; set; }
     }
 }
