@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Data.Common;
+using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using WebAuction.DataAccessLayer.EntityFramework.Entities;
 using WebAuction.DataAccessLayer.EntityFramework.Initializers;
@@ -11,6 +12,15 @@ namespace WebAuction.DataAccessLayer.EntityFramework
         {
             var instance = System.Data.Entity.SqlServer.SqlProviderServices.Instance;
             Database.SetInitializer(new WebAuctionDbInitializer());
+        }
+
+        /// <summary>
+        /// Ctor with db connection, required by data access layer tests
+        /// </summary>
+        /// <param name="connection">The database connection</param>
+        public WebAuctionDbContext(DbConnection connection) : base(connection, true)
+        {
+            Database.CreateIfNotExists();
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
