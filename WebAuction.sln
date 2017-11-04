@@ -1,11 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.15
+VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAuction.DataAccessLayer.EntityFramework", "WebAuction.DataAccessLayer.EntityFramework\WebAuction.DataAccessLayer.EntityFramework.csproj", "{87C68240-7476-4D82-A8C6-FADA51BFDC70}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAuction.CLI", "WebAuction.CLI\WebAuction.CLI.csproj", "{545F34A9-A7E4-4118-8B6C-BF6710BB41A0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{49D730B4-FDD4-4742-9A95-5215C0014367}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAuction.Infrastructure", "WebAuction.Infrastructure\WebAuction.Infrastructure.csproj", "{4BC15CAA-B53B-4BD3-8A71-F184FCB4C13A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAuction.Infrastructure.EntityFramework", "WebAuction.Infrastructure.EntityFramework\WebAuction.Infrastructure.EntityFramework.csproj", "{60BEC59C-E724-400D-AFC7-FEF9AC06D76A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +27,21 @@ Global
 		{545F34A9-A7E4-4118-8B6C-BF6710BB41A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{545F34A9-A7E4-4118-8B6C-BF6710BB41A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{545F34A9-A7E4-4118-8B6C-BF6710BB41A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BC15CAA-B53B-4BD3-8A71-F184FCB4C13A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BC15CAA-B53B-4BD3-8A71-F184FCB4C13A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BC15CAA-B53B-4BD3-8A71-F184FCB4C13A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BC15CAA-B53B-4BD3-8A71-F184FCB4C13A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60BEC59C-E724-400D-AFC7-FEF9AC06D76A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60BEC59C-E724-400D-AFC7-FEF9AC06D76A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60BEC59C-E724-400D-AFC7-FEF9AC06D76A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60BEC59C-E724-400D-AFC7-FEF9AC06D76A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4BC15CAA-B53B-4BD3-8A71-F184FCB4C13A} = {49D730B4-FDD4-4742-9A95-5215C0014367}
+		{60BEC59C-E724-400D-AFC7-FEF9AC06D76A} = {49D730B4-FDD4-4742-9A95-5215C0014367}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3FFDD20A-7C2C-4FC0-98C3-B250DFC4DCBE}

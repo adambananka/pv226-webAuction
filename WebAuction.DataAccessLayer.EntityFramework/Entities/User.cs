@@ -1,10 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using WebAuction.Infrastructure;
 
 namespace WebAuction.DataAccessLayer.EntityFramework.Entities
 {
-    public class User
+    public class User : IEntity
     {
         [NotMapped]
         public string TableName { get; set; } = nameof(WebAuctionDbContext.Users);

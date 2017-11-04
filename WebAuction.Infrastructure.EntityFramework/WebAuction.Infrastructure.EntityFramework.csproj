@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{87C68240-7476-4D82-A8C6-FADA51BFDC70}</ProjectGuid>
+    <ProjectGuid>{60BEC59C-E724-400D-AFC7-FEF9AC06D76A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WebAuction.DataAccessLayer.EntityFramework</RootNamespace>
-    <AssemblyName>WebAuction.DataAccessLayer.EntityFramework</AssemblyName>
+    <RootNamespace>WebAuction.Infrastructure.EntityFramework</RootNamespace>
+    <AssemblyName>WebAuction.Infrastructure.EntityFramework</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -48,17 +47,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Auction.cs" />
-    <Compile Include="Entities\Bid.cs" />
-    <Compile Include="Entities\Category.cs" />
-    <Compile Include="Entities\Comment.cs" />
-    <Compile Include="Entities\Payment.cs" />
-    <Compile Include="Entities\Rating.cs" />
-    <Compile Include="Entities\User.cs" />
+    <Compile Include="EntityFrameworkRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Validation\PositiveDecimal.cs" />
-    <Compile Include="WebAuctionDbContext.cs" />
-    <Compile Include="Initializers\WebAuctionDbInitializer.cs" />
+    <Compile Include="UnitOfWork\EntityFrameworkUnitOfWork.cs" />
+    <Compile Include="UnitOfWork\EntityFrameworkUnitOfWorkProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

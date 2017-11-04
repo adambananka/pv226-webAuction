@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using WebAuction.DataAccessLayer.EntityFramework.Validation;
+using WebAuction.Infrastructure;
 
 namespace WebAuction.DataAccessLayer.EntityFramework.Entities
 {
-    public class Auction
+    public class Auction : IEntity
     {
         public string TableName { get; set; } = nameof(WebAuctionDbContext.Auctions);
 
@@ -23,7 +24,7 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Entities
         public string PhotoUri { get; set; }
 
         [ForeignKey(nameof(Category))]
-        public int CategoryId { get; set; }
+        public Guid CategoryId { get; set; }
 
         public virtual Category Category { get; set; }
 

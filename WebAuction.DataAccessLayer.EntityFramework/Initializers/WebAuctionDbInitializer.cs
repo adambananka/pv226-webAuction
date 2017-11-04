@@ -20,7 +20,7 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
 
             var electro = new Category
             {
-                Id = 1,
+                Id = Guid.Parse("2dab2905-a1de-42ca-ae58-0083fa9f0d7f"),
                 Name = "Electronics",
                 Description = "Smartphones, laptops and other electronic devices.",
                 ParentId = null,
@@ -28,7 +28,7 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
             };
             var jewelry = new Category
             {
-                Id = 2,
+                Id = Guid.Parse("ca876008-7405-46b4-b491-8b275b349998"),
                 Name = "Jewelry",
                 Description = "Rings, necklaces...all shiny stuff.",
                 ParentId = null,
@@ -36,7 +36,7 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
             };
             var art = new Category
             {
-                Id = 3,
+                Id = Guid.Parse("66d1e631-e12d-45a8-87ee-631965a1d6fb"),
                 Name = "Art",
                 Description = "Paintings, statues and more strange things.",
                 ParentId = null,
@@ -102,7 +102,7 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
                 Id = Guid.Parse("0558b662-2aa8-438e-928c-571adb8b241b"),
                 Name = "Longclaw - best auction ever",
                 Description = "A big sword",
-                PhotoUri = @"\Content\",
+                PhotoUri = @"\Content\sword.jpg",
                 CategoryId = art.Id,
                 Category = art,
                 SellerId = jonSnow.Id,
@@ -253,7 +253,7 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
 
             var rating1 = new Rating
             {
-                Id = 1,
+                Id = Guid.Parse("a22782c5-060e-4330-9381-68db4a7a5d65"),
                 Feedback = "Proper seller, bro",
                 Seller = barryAllen,
                 SellerId = barryAllen.Id,
@@ -268,7 +268,7 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
 
             var rootComment1 = new Comment
             {
-                Id = 1,
+                Id = Guid.Parse("d7fe4d2f-afb8-48b5-b521-45fdae5a1c01"),
                 Time = longclawStartTime.AddHours(2),
                 Auction = longclawAuction,
                 AuctionId = longclawAuction.Id,
@@ -278,7 +278,7 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
             };
             var childComment1 = new Comment
             {
-                Id = 2,
+                Id = Guid.Parse("c87244d1-c2f7-4ad2-bd4a-560702fec4ba"),
                 Time = longclawStartTime.AddHours(3),
                 Auction = longclawAuction,
                 AuctionId = longclawAuction.Id,
