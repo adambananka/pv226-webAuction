@@ -1,20 +1,13 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using WebAuction.BusinessLayer.DataTransferObjects.Common;
 using WebAuction.DataAccessLayer.EntityFramework.Validation;
-using WebAuction.Infrastructure;
 
-namespace WebAuction.DataAccessLayer.EntityFramework.Entities
+namespace WebAuction.BusinessLayer.DataTransferObjects
 {
-    public class Auction : IEntity
+    public class AuctionDto : DtoBase
     {
-        public string TableName { get; set; } = nameof(WebAuctionDbContext.Auctions);
-
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public Guid Id { get; set; }
-
-        [Required]
-        [MaxLength(256)]
+        [Required, MaxLength(256)]
         public string Name { get; set; }
 
         public string Description { get; set; }
@@ -22,15 +15,12 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Entities
         [MaxLength(1024)]
         public string PhotoUri { get; set; }
 
-        [ForeignKey(nameof(Category))]
         public Guid CategoryId { get; set; }
 
-        public virtual Category Category { get; set; }
+        public CategoryDto Category { get; set; }
 
-        [ForeignKey(nameof(Seller))]
         public Guid SellerId { get; set; }
-
-        public virtual User Seller { get; set; }
+        
         [PositiveDecimal]
         public decimal StartingPrice { get; set; }
 

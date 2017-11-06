@@ -6,16 +6,16 @@ namespace WebAuction.Infrastructure.EntityFramework.UnitOfWork
 {
     public class EntityFrameworkUnitOfWorkProvider : UnitOfWorkProviderBase
     {
-        private readonly Func<DbContext> dbContextFactory;
+        private readonly Func<DbContext> _dbContextFactory;
 
         public EntityFrameworkUnitOfWorkProvider(Func<DbContext> dbContextFactory)
         {
-            this.dbContextFactory = dbContextFactory;
+            this._dbContextFactory = dbContextFactory;
         }
 
         public override IUnitOfWork Create()
         {
-            UoWLocalInstance.Value = new EntityFrameworkUnitOfWork(dbContextFactory);
+            UoWLocalInstance.Value = new EntityFrameworkUnitOfWork(_dbContextFactory);
             return UoWLocalInstance.Value;
         }
     }
