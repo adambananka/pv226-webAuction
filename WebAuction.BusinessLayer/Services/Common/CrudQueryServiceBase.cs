@@ -20,8 +20,8 @@ namespace WebAuction.BusinessLayer.Services.Common
         protected CrudQueryServiceBase(IMapper mapper, IRepository<TEntity> repository,
             QueryObjectBase<TDto, TEntity, TFilterDto, IQuery<TEntity>> query) : base(mapper)
         {
-            this.Query = query;
-            this.Repository = repository;
+            Query = query;
+            Repository = repository;
         }
 
         /// <summary>
