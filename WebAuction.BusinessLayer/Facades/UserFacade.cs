@@ -40,7 +40,7 @@ namespace WebAuction.BusinessLayer.Facades
         ///// <param name="registrationDto">Customer registration details</param>
         ///// <param name="success">argument that tells whether the registration was successful</param>
         ///// <returns>Registered customer account ID</returns>
-        public Guid RegisterCustomer(UserRegistrationDto registrationDto, out bool success)
+        public Guid RegisterCustomer(UserCompleteDto registrationDto, out bool success)
         {
             if (_userService.GetCustomerAccordingToEmailAsync(registrationDto.Email) != null)
             {

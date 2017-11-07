@@ -46,9 +46,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\MappingConfig.cs" />
+    <Compile Include="DataTransferObjects\AuctionBidsDto.cs" />
     <Compile Include="DataTransferObjects\AuctionDto.cs" />
     <Compile Include="DataTransferObjects\BidDto.cs" />
     <Compile Include="DataTransferObjects\CategoryDto.cs" />
+    <Compile Include="DataTransferObjects\CommentDto.cs" />
     <Compile Include="DataTransferObjects\Common\DtoBase.cs" />
     <Compile Include="DataTransferObjects\Common\FilterDtoBase.cs" />
     <Compile Include="DataTransferObjects\Common\QueryResultDto.cs" />
@@ -56,8 +58,10 @@
     <Compile Include="DataTransferObjects\Filters\BidFilterDto.cs" />
     <Compile Include="DataTransferObjects\Filters\CategoryFilterDto.cs" />
     <Compile Include="DataTransferObjects\Filters\UserFilterDto.cs" />
+    <Compile Include="DataTransferObjects\PaymentDto.cs" />
+    <Compile Include="DataTransferObjects\RatingDto.cs" />
     <Compile Include="DataTransferObjects\UserDto.cs" />
-    <Compile Include="DataTransferObjects\UserRegistrationDto.cs" />
+    <Compile Include="DataTransferObjects\UserCompleteDto.cs" />
     <Compile Include="Facades\Common\FacadeBase.cs" />
     <Compile Include="Facades\UserFacade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
