@@ -22,7 +22,7 @@ namespace WebAuction.BusinessLayer.Services.Users
             return await Repository.GetAsync(entityId);
         }
 
-        public async Task<UserDto> GetCustomerAccordingToEmailAsync(string email)
+        public async Task<UserDto> GetUserAccordingToEmailAsync(string email)
         {
             var queryResult = await Query.ExecuteQuery(new UserFilterDto {Email = email});
             return queryResult.Items.SingleOrDefault();

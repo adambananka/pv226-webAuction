@@ -1,19 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebAuction.BusinessLayer.DataTransferObjects;
 using WebAuction.BusinessLayer.DataTransferObjects.Common;
 using WebAuction.BusinessLayer.DataTransferObjects.Filters;
 
-namespace WebAuction.BusinessLayer.Services.Users
+namespace WebAuction.BusinessLayer.Services.Bids
 {
-    public interface IUserService
+    public interface IBidService
     {
         /// <summary>
-        /// Gets user with given email address
+        /// Gets bids to given auction
         /// </summary>
-        /// <param name="email">email</param>
-        /// <returns>User with given email address</returns>
-        Task<UserDto> GetUserAccordingToEmailAsync(string email);
+        /// <param name="auctionId">auction's id</param>
+        /// <returns>Bids to given auction</returns>
+        Task<IEnumerable<BidDto>> GetBidsAccordingToAuctionAsync(Guid auctionId);
 
         /// <summary>
         /// Gets DTO representing the entity according to ID
@@ -21,19 +22,19 @@ namespace WebAuction.BusinessLayer.Services.Users
         /// <param name="entityId">entity ID</param>
         /// <param name="withIncludes">include all entity complex types</param>
         /// <returns>The DTO representing the entity</returns>
-        Task<UserDto> GetAsync(Guid entityId, bool withIncludes = true);
+        Task<BidDto> GetAsync(Guid entityId, bool withIncludes = true);
 
         /// <summary>
         /// Creates new entity
         /// </summary>
         /// <param name="entityDto">entity details</param>
-        Guid Create(UserDto entityDto);
+        Guid Create(BidDto entityDto);
 
         /// <summary>
         /// Updates entity
         /// </summary>
         /// <param name="entityDto">entity details</param>
-        Task Update(UserDto entityDto);
+        Task Update(BidDto entityDto);
 
         /// <summary>
         /// Deletes entity with given Id
@@ -45,6 +46,6 @@ namespace WebAuction.BusinessLayer.Services.Users
         /// Gets all DTOs (for given type)
         /// </summary>
         /// <returns>all available dtos (for given type)</returns>
-        Task<QueryResultDto<UserDto, UserFilterDto>> ListAllAsync();
+        Task<QueryResultDto<BidDto, BidFilterDto>> ListAllAsync();
     }
 }

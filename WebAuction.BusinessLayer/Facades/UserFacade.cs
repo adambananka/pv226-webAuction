@@ -22,7 +22,7 @@ namespace WebAuction.BusinessLayer.Facades
         {
             using (UnitOfWorkProvider.Create())
             {
-                return await _userService.GetCustomerAccordingToEmailAsync(email);
+                return await _userService.GetUserAccordingToEmailAsync(email);
             }
         }
 
@@ -42,7 +42,7 @@ namespace WebAuction.BusinessLayer.Facades
         ///// <returns>Registered customer account ID</returns>
         public Guid RegisterCustomer(UserCompleteDto registrationDto, out bool success)
         {
-            if (_userService.GetCustomerAccordingToEmailAsync(registrationDto.Email) != null)
+            if (_userService.GetUserAccordingToEmailAsync(registrationDto.Email) != null)
             {
                 success = false;
                 return new Guid();
