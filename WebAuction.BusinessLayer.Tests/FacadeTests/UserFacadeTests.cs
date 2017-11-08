@@ -15,7 +15,7 @@ namespace WebAuction.BusinessLayer.Tests.FacadeTests
     public class UserFacadeTests
     {
         [Fact]
-        public async Task GetUserAccordingToEmailAsync_ExistingCustomer_ReturnsCorrectUser()
+        public async Task GetUserAccordingToEmailAsync_ExistingUser_ReturnsCorrectResult()
         {
             const string userEmail = "test.user@email.com";
 
@@ -27,7 +27,7 @@ namespace WebAuction.BusinessLayer.Tests.FacadeTests
                 Phone = "+420777123456"
             };
 
-            var expectedQueryResult = new QueryResultDto<UserDto, UserFilterDto>()
+            var expectedQueryResult = new QueryResultDto<UserDto, UserFilterDto>
             {
                 Items = new List<UserDto> {expectedUser}
             };
@@ -37,6 +37,25 @@ namespace WebAuction.BusinessLayer.Tests.FacadeTests
             var actualUser = await userFacade.GetUserAccordingToEmailAsync("sad");
 
             Assert.Equal(expectedUser, actualUser);
+        }
+
+        [Fact]
+        public async Task GetUserAccordingToEmailAsync__ReturnCorrectResult()
+        {
+            var expectedQueryResult = new QueryResultDto<UserDto, UserFilterDto>
+            {
+                Items = new List<UserDto>
+                {
+                    new UserDto {Id = Guid.NewGuid()},
+                    new UserDto {Id = Guid.NewGuid()}
+                }
+            };
+
+            var userFacade = CreateUserFacade(expectedQueryResult);
+
+            var actualResult = await userFacade.GetAllUsersAsync();
+
+            Assert.Equal(expectedQueryResult, actualResult);
         }
 
         private static UserFacade CreateUserFacade(QueryResultDto<UserDto, UserFilterDto> result)

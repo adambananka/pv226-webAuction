@@ -26,7 +26,7 @@ namespace WebAuction.BusinessLayer.Facades
             }
         }
 
-        public async Task<QueryResultDto<UserDto, UserFilterDto>> GetAllUserAsync()
+        public async Task<QueryResultDto<UserDto, UserFilterDto>> GetAllUsersAsync()
         {
             using (UnitOfWorkProvider)
             {
