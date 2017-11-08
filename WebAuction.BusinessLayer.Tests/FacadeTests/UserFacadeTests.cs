@@ -15,7 +15,7 @@ namespace WebAuction.BusinessLayer.Tests.FacadeTests
     public class UserFacadeTests
     {
         [Fact]
-        public async Task GetUserAccordingToEmailAsync_ExistingUser_ReturnsCorrectResult()
+        public async Task GetUserAccordingToEmailAsync_ExistingUser_ReturnCorrectUser()
         {
             const string userEmail = "test.user@email.com";
 
@@ -40,7 +40,22 @@ namespace WebAuction.BusinessLayer.Tests.FacadeTests
         }
 
         [Fact]
-        public async Task GetUserAccordingToEmailAsync__ReturnCorrectResult()
+        public async Task GetAllUsersAsync_NoUsers_ReturnEmptyResult()
+        {
+            var expectedQueryResult = new QueryResultDto<UserDto, UserFilterDto>
+            {
+                Items = new List<UserDto>()
+            };
+
+            var userFacade = CreateUserFacade(expectedQueryResult);
+
+            var actualUsers = await userFacade.GetAllUsersAsync();
+
+            Assert.Equal(expectedQueryResult, actualUsers);
+        }
+
+        [Fact]
+        public async Task GetAllUsersAsync_TwoExistingUsers_ReturnCorrectResult()
         {
             var expectedQueryResult = new QueryResultDto<UserDto, UserFilterDto>
             {
