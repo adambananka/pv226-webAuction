@@ -27,5 +27,7 @@ namespace WebAuction.BusinessLayer.Services.Users
             var queryResult = await Query.ExecuteQuery(new UserFilterDto {Email = email});
             return queryResult.Items.SingleOrDefault();
         }
+
+
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2005
+VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAuction.DataAccessLayer.EntityFramework", "WebAuction.DataAccessLayer.EntityFramework\WebAuction.DataAccessLayer.EntityFramework.csproj", "{87C68240-7476-4D82-A8C6-FADA51BFDC70}"
 EndProject
@@ -18,6 +18,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{78B9DBB6-0829-41DA-99EC-94EB98C55078}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAuction.DataAccessLayer.EntityFramework.Tests", "WebAuction.DataAccessLayer.EntityFramework.Tests\WebAuction.DataAccessLayer.EntityFramework.Tests.csproj", "{DDC81509-1766-44A3-A62B-424A548CC0AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAuction.BusinessLayer.Tests", "WebAuction.BusinessLayer.Tests\WebAuction.BusinessLayer.Tests.csproj", "{C982664A-E6AD-4296-8C8B-63A81B4F45AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +51,10 @@ Global
 		{DDC81509-1766-44A3-A62B-424A548CC0AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DDC81509-1766-44A3-A62B-424A548CC0AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DDC81509-1766-44A3-A62B-424A548CC0AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C982664A-E6AD-4296-8C8B-63A81B4F45AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C982664A-E6AD-4296-8C8B-63A81B4F45AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C982664A-E6AD-4296-8C8B-63A81B4F45AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C982664A-E6AD-4296-8C8B-63A81B4F45AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,6 +63,7 @@ Global
 		{4BC15CAA-B53B-4BD3-8A71-F184FCB4C13A} = {49D730B4-FDD4-4742-9A95-5215C0014367}
 		{60BEC59C-E724-400D-AFC7-FEF9AC06D76A} = {49D730B4-FDD4-4742-9A95-5215C0014367}
 		{DDC81509-1766-44A3-A62B-424A548CC0AD} = {78B9DBB6-0829-41DA-99EC-94EB98C55078}
+		{C982664A-E6AD-4296-8C8B-63A81B4F45AE} = {78B9DBB6-0829-41DA-99EC-94EB98C55078}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3FFDD20A-7C2C-4FC0-98C3-B250DFC4DCBE}

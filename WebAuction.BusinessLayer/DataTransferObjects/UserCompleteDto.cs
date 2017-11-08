@@ -2,7 +2,7 @@
 
 namespace WebAuction.BusinessLayer.DataTransferObjects
 {
-    public class UserCompleteDto :DtoBase
+    public class UserCompleteDto : DtoBase
     {
         public string Name { get; set; }
 
