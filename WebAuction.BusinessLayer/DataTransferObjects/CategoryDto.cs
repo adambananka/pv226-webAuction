@@ -7,7 +7,7 @@ namespace WebAuction.BusinessLayer.DataTransferObjects
     {
         public string Name { get; set; }
 
-        public bool HasParent => this.ParentId != null;
+        public bool HasParent => ParentId != null;
 
         /// <summary>
         /// Determines if products within this category 

@@ -10,7 +10,7 @@ namespace WebAuction.Infrastructure.EntityFramework.UnitOfWork
 
         public EntityFrameworkUnitOfWorkProvider(Func<DbContext> dbContextFactory)
         {
-            this._dbContextFactory = dbContextFactory;
+            _dbContextFactory = dbContextFactory;
         }
 
         public override IUnitOfWork Create()

@@ -11,9 +11,9 @@ using WebAuction.Infrastructure.UnitOfWork;
 
 namespace WebAuction.DataAccessLayer.EntityFramework.Tests.Config
 {
-    class EntityFrameworkTestInstaller : IWindsorInstaller
+    public class EntityFrameworkTestInstaller : IWindsorInstaller
     {
-        private const string TestDbConnectionString = "InMemoryTestDBDemoEshop";
+        private const string TestDbConnectionString = "InMemoryTestDBWebAuction";
 
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
@@ -38,8 +38,6 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Tests.Config
             var context = new WebAuctionDbContext(Effort.DbConnectionFactory.CreatePersistent(TestDbConnectionString));
             context.Categories.RemoveRange(context.Categories);
             context.SaveChanges();
-
-            
 
             return context;
         }
