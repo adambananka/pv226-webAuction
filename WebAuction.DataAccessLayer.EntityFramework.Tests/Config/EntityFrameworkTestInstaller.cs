@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
+using WebAuction.DataAccessLayer.EntityFramework.Entities;
 using WebAuction.Infrastructure;
 using WebAuction.Infrastructure.EntityFramework;
 using WebAuction.Infrastructure.EntityFramework.UnitOfWork;
@@ -36,8 +38,26 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Tests.Config
         private static DbContext InitializeDatabase()
         {
             var context = new WebAuctionDbContext(Effort.DbConnectionFactory.CreatePersistent(TestDbConnectionString));
-            context.Categories.RemoveRange(context.Categories);
-            context.SaveChanges();
+
+            var electro = new Category
+            {
+                Id = Guid.Parse("00000001-a1de-42ca-ae58-0083fa9f0d7f"),
+                Name = "Electronics",
+                Description = "Smartphones, laptops and other electronic devices.",
+                ParentId = null,
+                Parent = null
+            };
+
+            var smartphones = new Category
+            {
+                Id = Guid.Parse("00000011-a1de-42ca-ae58-0083fa9f0d7f"),
+                Name = "Smartphones",
+                Description = "Smartphone category",
+                ParentId = electro.Id,
+                Parent = electro
+            };
+
+            context.Categories.AddOrUpdate(category => category.Id, electro, smartphones);
 
             return context;
         }
