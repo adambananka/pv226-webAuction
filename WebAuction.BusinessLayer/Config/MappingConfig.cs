@@ -22,7 +22,12 @@ namespace WebAuction.BusinessLayer.Config
                     }
                     return categoryPath;
                 })).ReverseMap();
+            config.CreateMap<Bid, BidDto>().ReverseMap();
+            config.CreateMap<Rating, RatingDto>().ReverseMap();
             config.CreateMap<QueryResult<Category>, QueryResultDto<CategoryDto, CategoryFilterDto>>();
+            config.CreateMap<QueryResult<Bid>, QueryResultDto<BidDto, BidFilterDto>>();
+            config.CreateMap<QueryResult<Rating>, QueryResultDto<RatingDto, RatingFilterDto>>();
+
         }
     }
 }

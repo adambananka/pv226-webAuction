@@ -36,15 +36,6 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Tests.RepositoryTests
             }
 
             Assert.Equal(_smartphonesCategoryId, smartphoneCategory.Id);
-
-            // Just a tidbit
-            var notIncludedProperties = typeof(Category).GetProperties()
-                .Where(info => info.PropertyType.Assembly.FullName.Contains("WebAuction"));
-            foreach (var property in notIncludedProperties)
-            {
-                _testOutputHelper.WriteLine(smartphoneCategory.Parent != null ? "1" : "2");
-                Assert.Null(property.GetValue(smartphoneCategory, null));
-            }
         }
 
         [Fact]

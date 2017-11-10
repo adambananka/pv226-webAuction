@@ -15,9 +15,7 @@ namespace WebAuction.BusinessLayer.Services.Bids
     public class BidService : CrudQueryServiceBase<Bid, BidDto, BidFilterDto>, IBidService
     {
         public BidService(IMapper mapper, IRepository<Bid> repository,
-            QueryObjectBase<BidDto, Bid, BidFilterDto, IQuery<Bid>> query) : base(mapper, repository, query)
-        {
-        }
+            QueryObjectBase<BidDto, Bid, BidFilterDto, IQuery<Bid>> query) : base(mapper, repository, query) {}
 
         protected override async Task<Bid> GetWithIncludesAsync(Guid entityId)
         {
