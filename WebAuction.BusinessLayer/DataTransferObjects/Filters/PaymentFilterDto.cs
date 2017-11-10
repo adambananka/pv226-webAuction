@@ -3,10 +3,8 @@ using WebAuction.BusinessLayer.DataTransferObjects.Common;
 
 namespace WebAuction.BusinessLayer.DataTransferObjects.Filters
 {
-    public class BidFilterDto : FilterDtoBase
+    public class PaymentFilterDto : FilterDtoBase
     {
         public Guid AuctionId { get; set; }
-
-        public Guid BuyerId { get; set; }
     }
 }

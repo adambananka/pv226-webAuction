@@ -69,6 +69,7 @@
     <Compile Include="DataTransferObjects\Filters\BidFilterDto.cs" />
     <Compile Include="DataTransferObjects\Filters\CategoryFilterDto.cs" />
     <Compile Include="DataTransferObjects\Filters\CommentFilterDto.cs" />
+    <Compile Include="DataTransferObjects\Filters\PaymentFilterDto.cs" />
     <Compile Include="DataTransferObjects\Filters\RatingFilterDto.cs" />
     <Compile Include="DataTransferObjects\Filters\UserFilterDto.cs" />
     <Compile Include="DataTransferObjects\PaymentDto.cs" />
@@ -83,7 +84,9 @@
     <Compile Include="QueryObjects\AuctionQueryObject.cs" />
     <Compile Include="QueryObjects\BidQueryObject.cs" />
     <Compile Include="QueryObjects\CategoryQueryObject.cs" />
+    <Compile Include="QueryObjects\CommentQueryObject.cs" />
     <Compile Include="QueryObjects\Common\QueryObjectBase.cs" />
+    <Compile Include="QueryObjects\PaymentQueryObject.cs" />
     <Compile Include="QueryObjects\RatingQueryObject.cs" />
     <Compile Include="QueryObjects\UserQueryObject.cs" />
     <Compile Include="Services\Auctions\AuctionService.cs" />

@@ -11,15 +11,15 @@ namespace WebAuction.BusinessLayer.QueryObjects
 {
     public class UserQueryObject : QueryObjectBase<UserDto, User, UserFilterDto, IQuery<User>>
     {
-        public UserQueryObject(IMapper mapper, IQuery<User> query) : base(mapper, query) {}
+        public UserQueryObject(IMapper mapper, IQuery<User> query) : base(mapper, query)
+        {
+        }
+
         protected override IQuery<User> ApplyWhereClause(IQuery<User> query, UserFilterDto filter)
         {
-            if (!string.IsNullOrEmpty(filter.Email))
-            {
-                return query;
-            }
-
-            return query.Where(new SimplePredicate(nameof(User.Email), ValueComparingOperator.Equal, filter.Email));
+            return !string.IsNullOrEmpty(filter.Email)
+                ? query
+                : query.Where(new SimplePredicate(nameof(User.Email), ValueComparingOperator.Equal, filter.Email));
         }
     }
 }

@@ -12,17 +12,17 @@ using WebAuction.Infrastructure.Query.Predicates.Operators;
 
 namespace WebAuction.BusinessLayer.QueryObjects
 {
-    public class BidQueryObject : QueryObjectBase<BidDto, Bid, BidFilterDto, IQuery<Bid>>
+    public class CommentQueryObject : QueryObjectBase<CommentDto, Comment, CommentFilterDto, IQuery<Comment>>
     {
-        public BidQueryObject(IMapper mapper, IQuery<Bid> query) : base(mapper, query)
+        public CommentQueryObject(IMapper mapper, IQuery<Comment> query) : base(mapper, query)
         {
         }
 
-        protected override IQuery<Bid> ApplyWhereClause(IQuery<Bid> query, BidFilterDto filter)
+        protected override IQuery<Comment> ApplyWhereClause(IQuery<Comment> query, CommentFilterDto filter)
         {
             var definedPredicates = new List<IPredicate>();
             AddIfDefined(FilterAuction(filter), definedPredicates);
-            AddIfDefined(FilterBuyer(filter), definedPredicates);
+            AddIfDefined(FilterUser(filter), definedPredicates);
 
             if (definedPredicates.Count == 0)
             {
@@ -44,18 +44,18 @@ namespace WebAuction.BusinessLayer.QueryObjects
             }
         }
 
-        private static SimplePredicate FilterAuction(BidFilterDto filter)
+        private static SimplePredicate FilterAuction(CommentFilterDto filter)
         {
             return filter.AuctionId.Equals(Guid.Empty)
                 ? null
-                : new SimplePredicate(nameof(Bid.AuctionId), ValueComparingOperator.Equal, filter.AuctionId);
+                : new SimplePredicate(nameof(Comment.AuctionId), ValueComparingOperator.Equal, filter.AuctionId);
         }
 
-        private static SimplePredicate FilterBuyer(BidFilterDto filter)
+        private static SimplePredicate FilterUser(CommentFilterDto filter)
         {
-            return filter.BuyerId.Equals(Guid.Empty)
+            return filter.UserId.Equals(Guid.Empty)
                 ? null
-                : new SimplePredicate(nameof(Bid.BuyerId), ValueComparingOperator.Equal, filter.BuyerId);
+                : new SimplePredicate(nameof(Comment.UserId), ValueComparingOperator.Equal, filter.UserId);
         }
     }
 }
