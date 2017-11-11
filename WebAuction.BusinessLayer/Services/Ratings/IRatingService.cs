@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebAuction.BusinessLayer.DataTransferObjects;
 using WebAuction.BusinessLayer.DataTransferObjects.Common;
@@ -12,8 +13,8 @@ namespace WebAuction.BusinessLayer.Services.Ratings
         /// Gets rating with given sellerId
         /// </summary>
         /// <param name="sellerId">sellerId</param>
-        /// <returns>User with given sellerId</returns>
-        Task<RatingDto> GetRatingBySellerId(Guid sellerId);
+        /// <returns>Ratings for user with given Id</returns>
+        Task<IEnumerable<RatingDto>> GetRatingsBySellerId(Guid sellerId);
 
         /// <summary>
         /// Gets DTO representing the entity according to ID
@@ -46,5 +47,12 @@ namespace WebAuction.BusinessLayer.Services.Ratings
         /// </summary>
         /// <returns>all available dtos (for given type)</returns>
         Task<QueryResultDto<RatingDto, RatingFilterDto>> ListAllAsync();
+
+        /// <summary>
+        /// Gets average rating for given user
+        /// </summary>
+        /// <param name="sellerId">user's Id</param>
+        /// <returns>average rating of user</returns>
+        double GetAverageRatingForSeller(Guid sellerId);
     }
 }

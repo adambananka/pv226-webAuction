@@ -27,5 +27,11 @@ namespace WebAuction.BusinessLayer.Services.Bids
             var queryResult = await Query.ExecuteQuery(new BidFilterDto {AuctionId = auctionId});
             return queryResult.Items;
         }
+
+        public async Task<IEnumerable<BidDto>> GetBidsAccordingToBuyerAsync(Guid buyerId)
+        {
+            var queryResult = await Query.ExecuteQuery(new BidFilterDto { BuyerId = buyerId });
+            return queryResult.Items;
+        }
     }
 }

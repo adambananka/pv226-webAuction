@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -22,10 +23,16 @@ namespace WebAuction.BusinessLayer.Services.Ratings
             return await Repository.GetAsync(entityId);
         }
 
-        public async Task<RatingDto> GetRatingBySellerId(Guid sellerId)
+        public async Task<IEnumerable<RatingDto>> GetRatingsBySellerId(Guid sellerId)
         {
             var queryResult = await Query.ExecuteQuery(new RatingFilterDto {SellerId = sellerId});
-            return queryResult.Items.SingleOrDefault();
+            return queryResult.Items;
+        }
+
+        public double GetAverageRatingForSeller(Guid sellerId)
+        {
+            var ratings = GetRatingsBySellerId(sellerId).Result.ToList();
+            return ratings.Sum(r => r.Stars) * 1.0 / ratings.Count;
         }
     }
 }

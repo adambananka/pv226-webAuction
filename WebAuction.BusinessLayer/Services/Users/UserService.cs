@@ -15,7 +15,9 @@ namespace WebAuction.BusinessLayer.Services.Users
     public class UserService : CrudQueryServiceBase<User, UserDto, UserFilterDto>, IUserService
     {
         public UserService(IMapper mapper, IRepository<User> repository,
-            QueryObjectBase<UserDto, User, UserFilterDto, IQuery<User>> query) : base(mapper, repository, query) {}
+            QueryObjectBase<UserDto, User, UserFilterDto, IQuery<User>> query) : base(mapper, repository, query)
+        {
+        }
 
         protected override async Task<User> GetWithIncludesAsync(Guid entityId)
         {
@@ -27,7 +29,5 @@ namespace WebAuction.BusinessLayer.Services.Users
             var queryResult = await Query.ExecuteQuery(new UserFilterDto {Email = email});
             return queryResult.Items.SingleOrDefault();
         }
-
-
     }
 }

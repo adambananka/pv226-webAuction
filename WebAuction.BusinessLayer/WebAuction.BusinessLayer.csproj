@@ -95,12 +95,16 @@
     <Compile Include="Services\Bidding\IBiddingService.cs" />
     <Compile Include="Services\Bids\BidService.cs" />
     <Compile Include="Services\Bids\IBidService.cs" />
+    <Compile Include="Services\Categories\CategoryService.cs" />
+    <Compile Include="Services\Categories\ICategoryService.cs" />
     <Compile Include="Services\ClosingAuction\ClosingAuctionService.cs" />
     <Compile Include="Services\ClosingAuction\IClosingAuctionService.cs" />
     <Compile Include="Services\Comments\CommentService.cs" />
     <Compile Include="Services\Comments\ICommentService.cs" />
     <Compile Include="Services\Common\CrudQueryServiceBase.cs" />
     <Compile Include="Services\Common\ServiceBase.cs" />
+    <Compile Include="Services\Payments\IPaymentService.cs" />
+    <Compile Include="Services\Payments\PaymentService.cs" />
     <Compile Include="Services\Ratings\IRatingService.cs" />
     <Compile Include="Services\Ratings\RatingService.cs" />
     <Compile Include="Services\Users\IUserService.cs" />

@@ -17,6 +17,13 @@ namespace WebAuction.BusinessLayer.Services.Bids
         Task<IEnumerable<BidDto>> GetBidsAccordingToAuctionAsync(Guid auctionId);
 
         /// <summary>
+        /// Gets bids of given user
+        /// </summary>
+        /// <param name="buyerId">user's id</param>
+        /// <returns>Bids of given user</returns>
+        Task<IEnumerable<BidDto>> GetBidsAccordingToBuyerAsync(Guid buyerId);
+
+        /// <summary>
         /// Gets DTO representing the entity according to ID
         /// </summary>
         /// <param name="entityId">entity ID</param>
