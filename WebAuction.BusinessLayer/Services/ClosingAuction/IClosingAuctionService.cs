@@ -4,8 +4,8 @@ namespace WebAuction.BusinessLayer.Services.ClosingAuction
 {
     public interface IClosingAuctionService
     {
-        void CloseAuctionDueToTimeout(AuctionDto auctionDto);
+        void CloseAuctionDueToTimeout(AuctionDto auctionDto, BidDto[] auctionBids);
 
-        void CloseAuctionDueToBuyout(AuctionDto auctionDto);
+        void CloseAuctionDueToBuyout(AuctionDto auctionDto, BidDto[] auctionBids);
     }
 }

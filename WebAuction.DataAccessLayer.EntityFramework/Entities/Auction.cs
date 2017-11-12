@@ -53,7 +53,7 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Entities
 
         public string HandoverOptions { get; set; }
 
-        public bool Sold { get; set; }
+        public bool Ended { get; set; }
 
         [Range(0, int.MaxValue)]
         public int DisplayCount { get; set; }

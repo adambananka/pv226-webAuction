@@ -115,7 +115,7 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
                 EndTime = DateTime.Now.AddDays(2).Date + new TimeSpan(15, 0, 0),
                 SellTime = null,
                 HandoverOptions = "Come and take it.(it is obviously too heavy for raven, don't you think?)",
-                Sold = false,
+                Ended = false,
                 DisplayCount = 987,
             };
             var melsNeckAuction = new Auction
@@ -135,7 +135,7 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
                 EndTime = DateTime.Now.AddDays(6).Date + new TimeSpan(12, 0, 0),
                 SellTime = null,
                 HandoverOptions = "Can be delivered by raven.",
-                Sold = false,
+                Ended = false,
                 DisplayCount = 354
             };
             var blueStuffAuction = new Auction
@@ -155,7 +155,7 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
                 EndTime = DateTime.Now.AddDays(5).Date + new TimeSpan(18, 0, 0),
                 SellTime = null,
                 HandoverOptions = "Definitely not by postal service.",
-                Sold = false,
+                Ended = false,
                 DisplayCount = 412
             };
             var oldSuitAuction = new Auction
@@ -175,7 +175,7 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
                 EndTime = DateTime.Now.AddDays(1).Date + new TimeSpan(16, 0, 0),
                 SellTime = null,
                 HandoverOptions = "Delivery in a blink of eye.",
-                Sold = false,
+                Ended = false,
                 DisplayCount = 1572
             };
             var tachyonSellTime = DateTime.Now.AddDays(-7) + GetRandomDayTime();
@@ -196,7 +196,7 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
                 EndTime = DateTime.Now.AddDays(-5).Date + new TimeSpan(15, 0, 0),
                 SellTime = tachyonSellTime,
                 HandoverOptions = "Run for it.",
-                Sold = true,
+                Ended = true,
                 DisplayCount = 529
             };
             context.Auctions.AddOrUpdate(auction => auction.Id, longclawAuction, melsNeckAuction, blueStuffAuction,
