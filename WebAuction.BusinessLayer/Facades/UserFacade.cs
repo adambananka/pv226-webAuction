@@ -1,8 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebAuction.BusinessLayer.DataTransferObjects;
-using WebAuction.BusinessLayer.DataTransferObjects.Common;
-using WebAuction.BusinessLayer.DataTransferObjects.Filters;
 using WebAuction.BusinessLayer.Facades.Common;
 using WebAuction.BusinessLayer.Services.Users;
 using WebAuction.Infrastructure.UnitOfWork;
@@ -26,11 +25,11 @@ namespace WebAuction.BusinessLayer.Facades
             }
         }
 
-        public async Task<QueryResultDto<UserDto, UserFilterDto>> GetAllUsersAsync()
+        public async Task<IEnumerable<UserDto>> GetAllUsersAsync()
         {
             using (UnitOfWorkProvider.Create())
             {
-                return await _userService.ListAllAsync();
+                return (await _userService.ListAllAsync()).Items;
             }
         }
 

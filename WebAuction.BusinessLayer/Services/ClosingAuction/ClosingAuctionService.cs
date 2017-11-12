@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using WebAuction.BusinessLayer.DataTransferObjects;
@@ -17,8 +18,7 @@ namespace WebAuction.BusinessLayer.Services.ClosingAuction
             _auctionRepository = auctionRepository;
         }
 
-        // todo - premysliet dto...ok?
-        public void CloseAuctionDueToTimeout(AuctionDto auctionDto, BidDto[] auctionBids)
+        public void CloseAuctionDueToTimeout(AuctionDto auctionDto, IEnumerable<BidDto> auctionBids)
         {
             var auction = Mapper.Map<Auction>(auctionDto);
             if (auctionBids.Any())
@@ -29,8 +29,7 @@ namespace WebAuction.BusinessLayer.Services.ClosingAuction
             _auctionRepository.Update(auction);
         }
 
-        // todo - premysliet Dto...staci?
-        public void CloseAuctionDueToBuyout(AuctionDto auctionDto, BidDto[] auctionBids)
+        public void CloseAuctionDueToBuyout(AuctionDto auctionDto, IEnumerable<BidDto> auctionBids)
         {
             if (!auctionBids.Any())
             {

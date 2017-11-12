@@ -76,7 +76,7 @@
     <Compile Include="DataTransferObjects\RatingDto.cs" />
     <Compile Include="DataTransferObjects\UserDto.cs" />
     <Compile Include="DataTransferObjects\UserCompleteDto.cs" />
-    <Compile Include="Facades\AuctionProcess.cs" />
+    <Compile Include="Facades\AuctionProcessFacade.cs" />
     <Compile Include="Facades\Common\FacadeBase.cs" />
     <Compile Include="Facades\UserFacade.cs" />
     <Compile Include="Facades\UserInteractionFacade.cs" />
