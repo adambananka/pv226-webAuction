@@ -28,7 +28,7 @@ namespace WebAuction.BusinessLayer.Facades
 
         public async Task<QueryResultDto<UserDto, UserFilterDto>> GetAllUsersAsync()
         {
-            using (UnitOfWorkProvider)
+            using (UnitOfWorkProvider.Create())
             {
                 return await _userService.ListAllAsync();
             }
@@ -38,24 +38,47 @@ namespace WebAuction.BusinessLayer.Facades
         ///// Performs customer registration
         ///// </summary>
         ///// <param name="registrationDto">Customer registration details</param>
-        ///// <param name="success">argument that tells whether the registration was successful</param>
-        ///// <returns>Registered customer account ID</returns>
-        public Guid RegisterUser(UserCompleteDto registrationDto, out bool success)
+        ///// <returns>Registered customer account ID, empty if unsuccessful</returns>
+        public async Task<Guid> RegisterUser(UserCompleteDto registrationDto)
         {
-            if (_userService.GetUserAccordingToEmailAsync(registrationDto.Email) != null)
+            using (var uow = UnitOfWorkProvider.Create())
             {
-                success = false;
-                return new Guid();
+                if (_userService.GetUserAccordingToEmailAsync(registrationDto.Email) != null)
+                {
+                    return Guid.Empty;
+                }
+                var accountId = _userService.CreateCustomer(registrationDto);
+                await uow.Commit();
+                return accountId;
             }
-            var accountId = new Guid();
-//            _userService.CreateCustomer(accountId);
-            success = true;
-            return accountId;
         }
 
-        public void EditUser(UserDto userDto)
+        public async Task<bool> EditUser(UserDto userDto)
         {
-            
+            using (var uow = UnitOfWorkProvider.Create())
+            {
+                if (await _userService.GetAsync(userDto.Id, false) == null)
+                {
+                    return false;
+                }
+                await _userService.Update(userDto);
+                await uow.Commit();
+                return true;
+            }
+        }
+
+        public async Task<bool> DeleteUser(Guid userId)
+        {
+            using (var uow = UnitOfWorkProvider.Create())
+            {
+                if (await _userService.GetAsync(userId, false) == null)
+                {
+                    return false;
+                }
+                _userService.Delete(userId);
+                await uow.Commit();
+                return true;
+            }
         }
     }
 }

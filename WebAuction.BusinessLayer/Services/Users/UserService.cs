@@ -29,5 +29,12 @@ namespace WebAuction.BusinessLayer.Services.Users
             var queryResult = await Query.ExecuteQuery(new UserFilterDto {Email = email});
             return queryResult.Items.SingleOrDefault();
         }
+
+        public Guid CreateCustomer(UserCompleteDto user)
+        {
+            var entity = Mapper.Map<User>(user);
+            Repository.Create(entity);
+            return entity.Id;
+        }
     }
 }
