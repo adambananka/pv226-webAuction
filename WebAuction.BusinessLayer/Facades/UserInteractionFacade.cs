@@ -27,6 +27,6 @@ namespace WebAuction.BusinessLayer.Facades
             _userService = userService;
         }
 
-        
+        // spracovanie rating a comment todo 
     }
 }

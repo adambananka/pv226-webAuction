@@ -51,7 +51,7 @@ namespace WebAuction.BusinessLayer.Tests.FacadeTests
 
             var actualUsers = await userFacade.GetAllUsersAsync();
 
-            Assert.Equal(expectedQueryResult, actualUsers);
+            Assert.Equal(expectedQueryResult.Items, actualUsers);
         }
 
         [Fact]
@@ -70,7 +70,7 @@ namespace WebAuction.BusinessLayer.Tests.FacadeTests
 
             var actualResult = await userFacade.GetAllUsersAsync();
 
-            Assert.Equal(expectedQueryResult, actualResult);
+            Assert.Equal(expectedQueryResult.Items, actualResult);
         }
 
         private static UserFacade CreateUserFacade(QueryResultDto<UserDto, UserFilterDto> result)

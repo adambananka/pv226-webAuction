@@ -6,6 +6,7 @@ using WebAuction.BusinessLayer.Facades.Common;
 using WebAuction.BusinessLayer.Services.Auctions;
 using WebAuction.BusinessLayer.Services.Bidding;
 using WebAuction.BusinessLayer.Services.Bids;
+using WebAuction.BusinessLayer.Services.Categories;
 using WebAuction.BusinessLayer.Services.ClosingAuction;
 using WebAuction.Infrastructure.UnitOfWork;
 
@@ -17,16 +18,18 @@ namespace WebAuction.BusinessLayer.Facades
         private readonly IClosingAuctionService _closingAuctionService;
         private readonly IBidService _bidService;
         private readonly IBiddingService _biddingService;
+        private readonly ICategoryService _categoryService;
 
         public AuctionProcessFacade(IUnitOfWorkProvider unitOfWorkProvider, IAuctionService auctionService,
             IClosingAuctionService closingAuctionService, IBidService bidService,
-            IBiddingService biddingService) : base(
+            IBiddingService biddingService, ICategoryService categoryService) : base(
             unitOfWorkProvider)
         {
             _auctionService = auctionService;
             _closingAuctionService = closingAuctionService;
             _bidService = bidService;
             _biddingService = biddingService;
+            _categoryService = categoryService;
         }
 
         public async Task<AuctionDto> GetAuctionAsync(Guid auctionId)
@@ -147,5 +150,25 @@ namespace WebAuction.BusinessLayer.Facades
                 await uow.Commit();
             }
         }
+
+        #region CategoriesManagement
+
+        public async Task<CategoryDto> GetCategoryAsync(Guid categoryId)
+        {
+            using (UnitOfWorkProvider.Create())
+            {
+                return await _categoryService.GetAsync(categoryId);
+            }
+        }
+
+        public async Task<IEnumerable<CategoryDto>> GetAllCategories()
+        {
+            using (UnitOfWorkProvider.Create())
+            {
+                return (await _categoryService.ListAllAsync()).Items;
+            }
+        }
+
+        #endregion
     }
 }
