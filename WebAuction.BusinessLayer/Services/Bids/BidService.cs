@@ -14,8 +14,13 @@ namespace WebAuction.BusinessLayer.Services.Bids
 {
     public class BidService : CrudQueryServiceBase<Bid, BidDto, BidFilterDto>, IBidService
     {
+        private readonly IRepository<Auction> _auctionRepository;
+
         public BidService(IMapper mapper, IRepository<Bid> repository,
-            QueryObjectBase<BidDto, Bid, BidFilterDto, IQuery<Bid>> query) : base(mapper, repository, query) {}
+            QueryObjectBase<BidDto, Bid, BidFilterDto, IQuery<Bid>> query, IRepository<Auction> auctionRepository) : base(mapper, repository, query)
+        {
+            _auctionRepository = auctionRepository;
+        }
 
         protected override async Task<Bid> GetWithIncludesAsync(Guid entityId)
         {
@@ -32,6 +37,20 @@ namespace WebAuction.BusinessLayer.Services.Bids
         {
             var queryResult = await Query.ExecuteQuery(new BidFilterDto { BuyerId = buyerId });
             return queryResult.Items;
+        }
+
+        public async Task PlaceBid(BidDto bidDto)
+        {
+            var bid = Mapper.Map<Bid>(bidDto);
+
+            var auction = await _auctionRepository.GetAsync(bidDto.AuctionId);
+            if (auction == null)
+            {
+                throw new ArgumentException("Bidding Service - PlacedBid() - Auction must not be null");
+            }
+
+            auction.ActualPrice = bid.NewItemPrice;
+            _auctionRepository.Update(auction);
         }
     }
 }

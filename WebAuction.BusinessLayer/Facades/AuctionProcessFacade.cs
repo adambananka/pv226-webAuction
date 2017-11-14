@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using WebAuction.BusinessLayer.DataTransferObjects;
 using WebAuction.BusinessLayer.Facades.Common;
 using WebAuction.BusinessLayer.Services.Auctions;
-using WebAuction.BusinessLayer.Services.Bidding;
 using WebAuction.BusinessLayer.Services.Bids;
 using WebAuction.BusinessLayer.Services.Categories;
 using WebAuction.BusinessLayer.Services.ClosingAuction;
@@ -17,21 +16,19 @@ namespace WebAuction.BusinessLayer.Facades
         private readonly IAuctionService _auctionService;
         private readonly IClosingAuctionService _closingAuctionService;
         private readonly IBidService _bidService;
-        private readonly IBiddingService _biddingService;
         private readonly ICategoryService _categoryService;
 
         public AuctionProcessFacade(IUnitOfWorkProvider unitOfWorkProvider, IAuctionService auctionService,
-            IClosingAuctionService closingAuctionService, IBidService bidService,
-            IBiddingService biddingService, ICategoryService categoryService) : base(
+            IClosingAuctionService closingAuctionService, IBidService bidService, ICategoryService categoryService) : base(
             unitOfWorkProvider)
         {
             _auctionService = auctionService;
             _closingAuctionService = closingAuctionService;
             _bidService = bidService;
-            _biddingService = biddingService;
             _categoryService = categoryService;
         }
 
+        #region AuctionCRUD
         public async Task<AuctionDto> GetAuctionAsync(Guid auctionId)
         {
             using (UnitOfWorkProvider.Create())
@@ -40,6 +37,7 @@ namespace WebAuction.BusinessLayer.Facades
             }
         }
 
+        #region GetAuctionAccordingTo...
         public async Task<IEnumerable<AuctionDto>> GetAuctionsAccordingToNameAsync(string name)
         {
             using (UnitOfWorkProvider.Create())
@@ -64,20 +62,13 @@ namespace WebAuction.BusinessLayer.Facades
                 return await _auctionService.GetAuctionsAccordingToFilterAsync(name, Guid.Empty, categoryIds, maxPrice);
             }
         }
+        #endregion
 
         public async Task<IEnumerable<AuctionDto>> GetAllAuctionsAsync()
         {
             using (UnitOfWorkProvider.Create())
             {
                 return (await _auctionService.ListAllAsync()).Items;
-            }
-        }
-
-        public async Task<IEnumerable<BidDto>> GetBidsToAuctionAsync(Guid auctionId)
-        {
-            using (UnitOfWorkProvider.Create())
-            {
-                return await _bidService.GetBidsAccordingToAuctionAsync(auctionId);
             }
         }
 
@@ -118,21 +109,33 @@ namespace WebAuction.BusinessLayer.Facades
                 return true;
             }
         }
+        #endregion
+
+        #region BidOperations
+        public async Task<IEnumerable<BidDto>> GetBidsToAuctionAsync(Guid auctionId)
+        {
+            using (UnitOfWorkProvider.Create())
+            {
+                return await _bidService.GetBidsAccordingToAuctionAsync(auctionId);
+            }
+        }
 
         public async void MakeBidToAuction(BidDto bid)
         {
             using (var uow = UnitOfWorkProvider.Create())
             {
-                await _biddingService.PlaceBid(bid);
+                await _bidService.PlaceBid(bid);
                 await uow.Commit();
             }
         }
+        #endregion
 
+        #region ClosingAuction
         public async void BuyoutAuction(AuctionDto auction, BidDto bid)
         {
             using (var uow = UnitOfWorkProvider.Create())
             {
-                await _biddingService.PlaceBid(bid);
+                await _bidService.PlaceBid(bid);
                 await uow.Commit();
 
                 var auctionBids = await _bidService.GetBidsAccordingToAuctionAsync(auction.Id);
@@ -150,6 +153,7 @@ namespace WebAuction.BusinessLayer.Facades
                 await uow.Commit();
             }
         }
+        #endregion
 
         #region CategoriesManagement
 

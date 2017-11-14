@@ -35,14 +35,14 @@ namespace WebAuction.BusinessLayer.Services.ClosingAuction
             {
                 throw new ArgumentException("ClosingAuctionService - CloseAuctionDueToBuyout(...) - auctionBids must contain at least one bid.");
             }
-            var buyoutBid = auctionBids.OrderByDescending(bid => bid.Time).First();
-            if (buyoutBid.BidAmount != auctionDto.BuyoutPrice)
+            var lastBid = auctionBids.OrderByDescending(bid => bid.Time).First();
+            if (lastBid.NewItemPrice != auctionDto.BuyoutPrice)
             {
                 throw new ArgumentException("ClosingAuctionService - CloseAuctionDueToBuyout(...) - auctionBids must contain buyout bid");
             }
             var auction = Mapper.Map<Auction>(auctionDto);
             auction.Ended = true;
-            auction.SellTime = buyoutBid.Time;
+            auction.SellTime = lastBid.Time;
             _auctionRepository.Update(auction);
         }
     }

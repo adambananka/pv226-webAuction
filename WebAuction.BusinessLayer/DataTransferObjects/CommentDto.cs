@@ -5,7 +5,7 @@ namespace WebAuction.BusinessLayer.DataTransferObjects
 {
     public class CommentDto : DtoBase
     {
-        public AuctionDto Auction { get; set; }
+        public Guid AuctionId { get; set; }
 
         public Guid UserId { get; set; }
 

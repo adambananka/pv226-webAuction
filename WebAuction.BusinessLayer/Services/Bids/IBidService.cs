@@ -54,5 +54,7 @@ namespace WebAuction.BusinessLayer.Services.Bids
         /// </summary>
         /// <returns>all available dtos (for given type)</returns>
         Task<QueryResultDto<BidDto, BidFilterDto>> ListAllAsync();
+
+        Task PlaceBid(BidDto bidDto);
     }
 }
