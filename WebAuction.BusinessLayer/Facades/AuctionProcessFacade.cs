@@ -29,6 +29,7 @@ namespace WebAuction.BusinessLayer.Facades
         }
 
         #region AuctionCRUD
+
         public async Task<AuctionDto> GetAuctionAsync(Guid auctionId)
         {
             using (UnitOfWorkProvider.Create())
@@ -38,6 +39,7 @@ namespace WebAuction.BusinessLayer.Facades
         }
 
         #region GetAuctionAccordingTo...
+
         public async Task<IEnumerable<AuctionDto>> GetAuctionsAccordingToNameAsync(string name)
         {
             using (UnitOfWorkProvider.Create())
@@ -62,6 +64,7 @@ namespace WebAuction.BusinessLayer.Facades
                 return await _auctionService.GetAuctionsAccordingToFilterAsync(name, Guid.Empty, categoryIds, maxPrice);
             }
         }
+
         #endregion
 
         public async Task<IEnumerable<AuctionDto>> GetAllAuctionsAsync()
@@ -109,9 +112,11 @@ namespace WebAuction.BusinessLayer.Facades
                 return true;
             }
         }
+
         #endregion
 
         #region BidOperations
+
         public async Task<IEnumerable<BidDto>> GetBidsToAuctionAsync(Guid auctionId)
         {
             using (UnitOfWorkProvider.Create())
@@ -128,9 +133,11 @@ namespace WebAuction.BusinessLayer.Facades
                 await uow.Commit();
             }
         }
+
         #endregion
 
         #region ClosingAuction
+
         public async void BuyoutAuction(AuctionDto auction, BidDto bid)
         {
             using (var uow = UnitOfWorkProvider.Create())
@@ -153,6 +160,7 @@ namespace WebAuction.BusinessLayer.Facades
                 await uow.Commit();
             }
         }
+
         #endregion
 
         #region CategoriesManagement
