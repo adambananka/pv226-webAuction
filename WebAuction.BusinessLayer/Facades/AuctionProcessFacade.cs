@@ -19,8 +19,8 @@ namespace WebAuction.BusinessLayer.Facades
         private readonly ICategoryService _categoryService;
 
         public AuctionProcessFacade(IUnitOfWorkProvider unitOfWorkProvider, IAuctionService auctionService,
-            IClosingAuctionService closingAuctionService, IBidService bidService, ICategoryService categoryService) : base(
-            unitOfWorkProvider)
+            IClosingAuctionService closingAuctionService, IBidService bidService, ICategoryService categoryService)
+            : base(unitOfWorkProvider)
         {
             _auctionService = auctionService;
             _closingAuctionService = closingAuctionService;

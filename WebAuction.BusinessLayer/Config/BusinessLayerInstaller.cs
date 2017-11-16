@@ -20,13 +20,16 @@ namespace WebAuction.BusinessLayer.Config
                     .BasedOn(typeof(QueryObjectBase<,,,>))
                     .WithServiceBase()
                     .LifestyleTransient(),
+
                 Classes.FromThisAssembly()
                     .BasedOn<ServiceBase>()
                     .WithServiceDefaultInterfaces()
                     .LifestyleTransient(),
+
                 Classes.FromThisAssembly()
                     .BasedOn<FacadeBase>()
                     .LifestyleTransient(),
+
                 Component.For<IMapper>()
                     .Instance(new Mapper(new MapperConfiguration(MappingConfig.ConfigureMapping)))
                     .LifestyleSingleton()

@@ -13,7 +13,7 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Config
 {
     public class EntityFrameworkInstaller : IWindsorInstaller
     {
-        public static string ConnectionSting =
+        internal const string ConnectionSting =
             "Data source=(localdb)\\mssqllocaldb;Database=WebAuctionSample;Trusted_Connection=True;MultipleActiveResultSets=true";
 
         public void Install(IWindsorContainer container, IConfigurationStore store)
