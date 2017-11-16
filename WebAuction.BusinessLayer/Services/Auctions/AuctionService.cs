@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using WebAuction.BusinessLayer.DataTransferObjects;
+using WebAuction.BusinessLayer.DataTransferObjects.Common;
 using WebAuction.BusinessLayer.DataTransferObjects.Filters;
 using WebAuction.BusinessLayer.QueryObjects.Common;
 using WebAuction.BusinessLayer.Services.Common;
@@ -22,7 +23,7 @@ namespace WebAuction.BusinessLayer.Services.Auctions
 
         protected override async Task<Auction> GetWithIncludesAsync(Guid entityId)
         {
-            return await Repository.GetAsync(entityId);
+            return await Repository.GetAsync(entityId, nameof(Auction.Category));
         }
 
         public async Task<IEnumerable<AuctionDto>> GetAuctionsAccordingToSellerAsync(Guid sellerId)
@@ -39,7 +40,7 @@ namespace WebAuction.BusinessLayer.Services.Auctions
 
         public async Task<IEnumerable<AuctionDto>> GetAuctionsAccordingToNameAsync(string name)
         {
-            var queryResult = await Query.ExecuteQuery(new AuctionFilterDto {Name = name});
+            var queryResult = await Query.ExecuteQuery(new AuctionFilterDto {SearchedName = name});
             return queryResult.Items;
         }
 
@@ -49,12 +50,17 @@ namespace WebAuction.BusinessLayer.Services.Auctions
         {
             var queryResult = await Query.ExecuteQuery(new AuctionFilterDto
             {
-                Name = name,
+                SearchedName = name,
                 SellerId = sellerId,
                 CategoryIds = categoryIds,
                 MaximalActualPrice = maximalPrice
             });
             return queryResult.Items;
+        }
+
+        public Task<QueryResultDto<AuctionDto, AuctionFilterDto>> ListAuctionsAsync(AuctionFilterDto filter)
+        {
+            return Query.ExecuteQuery(filter);
         }
     }
 }

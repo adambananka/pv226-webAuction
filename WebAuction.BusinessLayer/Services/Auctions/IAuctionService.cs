@@ -9,6 +9,8 @@ namespace WebAuction.BusinessLayer.Services.Auctions
 {
     public interface IAuctionService
     {
+        Task<QueryResultDto<AuctionDto, AuctionFilterDto>> ListAuctionsAsync(AuctionFilterDto filter);
+
         /// <summary>
         /// Gets auctions with given seller
         /// </summary>

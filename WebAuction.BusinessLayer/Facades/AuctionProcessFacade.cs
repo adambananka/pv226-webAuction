@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebAuction.BusinessLayer.DataTransferObjects;
+using WebAuction.BusinessLayer.DataTransferObjects.Common;
+using WebAuction.BusinessLayer.DataTransferObjects.Filters;
 using WebAuction.BusinessLayer.Facades.Common;
 using WebAuction.BusinessLayer.Services.Auctions;
 using WebAuction.BusinessLayer.Services.Bids;
@@ -35,6 +37,15 @@ namespace WebAuction.BusinessLayer.Facades
             using (UnitOfWorkProvider.Create())
             {
                 return await _auctionService.GetAsync(auctionId);
+            }
+        }
+
+        public async Task<QueryResultDto<AuctionDto, AuctionFilterDto>> GetAuctionsAsync(AuctionFilterDto filter)
+        {
+            // TODO - dorobit includeOnlyActiveAuctions
+            using (UnitOfWorkProvider.Create())
+            {
+                return await _auctionService.ListAuctionsAsync(filter);
             }
         }
 

@@ -14,9 +14,7 @@ namespace WebAuction.BusinessLayer.QueryObjects
 {
     public class AuctionQueryObject : QueryObjectBase<AuctionDto, Auction, AuctionFilterDto, IQuery<Auction>>
     {
-        public AuctionQueryObject(IMapper mapper, IQuery<Auction> query) : base(mapper, query)
-        {
-        }
+        public AuctionQueryObject(IMapper mapper, IQuery<Auction> query) : base(mapper, query) {}
 
         protected override IQuery<Auction> ApplyWhereClause(IQuery<Auction> query, AuctionFilterDto filter)
         {
@@ -25,6 +23,9 @@ namespace WebAuction.BusinessLayer.QueryObjects
             AddIfDefined(FilterSeller(filter), definedPredicates);
             AddIfDefined(FilterCategories(filter), definedPredicates);
             AddIfDefined(FilterMaximalPrice(filter), definedPredicates);
+            AddIfDefined(FilterMinimalPrice(filter), definedPredicates);
+            AddIfDefined(FilterMinimalEndTime(filter), definedPredicates);
+            AddIfDefined(FilterMaximalEndTime(filter), definedPredicates);
 
             if (definedPredicates.Count == 0)
             {
@@ -48,9 +49,9 @@ namespace WebAuction.BusinessLayer.QueryObjects
 
         private static SimplePredicate FilterItemName(AuctionFilterDto filter)
         {
-            return string.IsNullOrWhiteSpace(filter.Name)
+            return string.IsNullOrWhiteSpace(filter.SearchedName)
                 ? null
-                : new SimplePredicate(nameof(Auction.Name), ValueComparingOperator.StringContains, filter.Name);
+                : new SimplePredicate(nameof(Auction.Name), ValueComparingOperator.StringContains, filter.SearchedName);
         }
 
         private static SimplePredicate FilterSeller(AuctionFilterDto filter)
@@ -74,10 +75,46 @@ namespace WebAuction.BusinessLayer.QueryObjects
 
         private static SimplePredicate FilterMaximalPrice(AuctionFilterDto filter)
         {
-            return filter.MaximalActualPrice == decimal.MaxValue
-                ? null
-                : new SimplePredicate(nameof(Auction.ActualPrice), ValueComparingOperator.LessThanOrEqual,
-                    filter.MaximalActualPrice);
+            if (filter.MaximalActualPrice == decimal.MaxValue)
+            {
+                return null;
+            }
+
+            return new SimplePredicate(nameof(Auction.ActualPrice), ValueComparingOperator.LessThanOrEqual,
+                filter.MaximalActualPrice);
+        }
+
+        private static SimplePredicate FilterMinimalPrice(AuctionFilterDto filter)
+        {
+            if (filter.MinimalActualPrice == decimal.MinValue)
+            {
+                return null;
+            }
+
+            return new SimplePredicate(nameof(Auction.ActualPrice), ValueComparingOperator.GreaterThanOrEqual,
+                filter.MinimalActualPrice);
+        }
+
+        private static SimplePredicate FilterMinimalEndTime(AuctionFilterDto filter)
+        {
+            if (filter.MinimalEndTime == DateTime.MinValue)
+            {
+                return null;
+            }
+
+            return new SimplePredicate(nameof(Auction.EndTime), ValueComparingOperator.GreaterThanOrEqual,
+                filter.MinimalEndTime);
+        }
+
+        private static SimplePredicate FilterMaximalEndTime(AuctionFilterDto filter)
+        {
+            if (filter.MaximalEndTime == DateTime.MaxValue)
+            {
+                return null;
+            }
+
+            return new SimplePredicate(nameof(Auction.EndTime), ValueComparingOperator.LessThanOrEqual,
+                filter.MaximalEndTime);
         }
     }
 }
