@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2006
+VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAuction.DataAccessLayer.EntityFramework", "WebAuction.DataAccessLayer.EntityFramework\WebAuction.DataAccessLayer.EntityFramework.csproj", "{87C68240-7476-4D82-A8C6-FADA51BFDC70}"
 EndProject
@@ -20,6 +20,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAuction.DataAccessLayer.EntityFramework.Tests", "WebAuction.DataAccessLayer.EntityFramework.Tests\WebAuction.DataAccessLayer.EntityFramework.Tests.csproj", "{DDC81509-1766-44A3-A62B-424A548CC0AD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAuction.BusinessLayer.Tests", "WebAuction.BusinessLayer.Tests\WebAuction.BusinessLayer.Tests.csproj", "{C982664A-E6AD-4296-8C8B-63A81B4F45AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAuction.WebApi", "WebAuction.WebApi\WebAuction.WebApi.csproj", "{A4BC08B0-2BC0-425A-A57C-8802097B242B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,10 @@ Global
 		{C982664A-E6AD-4296-8C8B-63A81B4F45AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C982664A-E6AD-4296-8C8B-63A81B4F45AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C982664A-E6AD-4296-8C8B-63A81B4F45AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4BC08B0-2BC0-425A-A57C-8802097B242B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4BC08B0-2BC0-425A-A57C-8802097B242B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4BC08B0-2BC0-425A-A57C-8802097B242B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4BC08B0-2BC0-425A-A57C-8802097B242B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
