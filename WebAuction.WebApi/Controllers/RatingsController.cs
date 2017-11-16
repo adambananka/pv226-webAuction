@@ -16,7 +16,7 @@ namespace WebAuction.WebApi.Controllers
         {
             return new RatingDto()
             {
-                Feedback = InteractionFacade == null ? "null" : "not"
+                Feedback = InteractionFacade == null ? "nullasdf" : "not"
             };
 
             Console.WriteLine("lol");

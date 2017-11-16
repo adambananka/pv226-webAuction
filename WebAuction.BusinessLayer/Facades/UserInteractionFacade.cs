@@ -20,7 +20,7 @@ namespace WebAuction.BusinessLayer.Facades
             _ratingService = ratingService;
             _commentService = commentService;
         }
-        
+
         #region CommentOperations
 
         public async Task<CommentDto> GetCommentAsync(Guid commentId)
