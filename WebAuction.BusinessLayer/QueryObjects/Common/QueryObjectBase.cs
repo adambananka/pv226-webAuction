@@ -6,6 +6,8 @@ using WebAuction.Infrastructure.Query;
 
 namespace WebAuction.BusinessLayer.QueryObjects.Common
 {
+    // todo - pridat konvecne where clause dle filtra
+    // 	MinimalPrice => new SimplePredicate(nameof(MinimalPrice), GreaterThanOrEqual,  ..)
     public abstract class QueryObjectBase<TDto, TEntity, TFilter, TQuery>
         where TFilter : FilterDtoBase
         where TQuery : IQuery<TEntity>
