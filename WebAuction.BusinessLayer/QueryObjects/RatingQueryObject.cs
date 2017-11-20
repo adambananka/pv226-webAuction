@@ -9,7 +9,7 @@ using WebAuction.Infrastructure.Query.Predicates.Operators;
 
 namespace WebAuction.BusinessLayer.QueryObjects
 {
-    public class RatingQueryObject : QueryObjectBase<RatingFilterDto, Rating, RatingFilterDto, IQuery<Rating>>
+    public class RatingQueryObject : QueryObjectBase<RatingDto, Rating, RatingFilterDto, IQuery<Rating>>
     {
         public RatingQueryObject(IMapper mapper, IQuery<Rating> query) : base(mapper, query) {}
         protected override IQuery<Rating> ApplyWhereClause(IQuery<Rating> query, RatingFilterDto filter)
