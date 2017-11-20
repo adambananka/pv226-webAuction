@@ -1,5 +1,6 @@
 ﻿using System;
 using AutoMapper;
+using WebAuction.BusinessLayer.DataTransferObjects;
 using WebAuction.BusinessLayer.DataTransferObjects.Filters;
 using WebAuction.BusinessLayer.QueryObjects.Common;
 using WebAuction.DataAccessLayer.EntityFramework.Entities;

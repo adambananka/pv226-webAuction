@@ -105,6 +105,14 @@ namespace WebAuction.BusinessLayer.Facades
             }
         }
 
+        public async Task<IEnumerable<RatingDto>> GetAllRatingsAsync()
+        {
+            using (UnitOfWorkProvider.Create())
+            {
+                return (await _ratingService.ListAllAsync()).Items;
+            }
+        }
+
         public async Task<Guid> CreateRating(RatingDto rating)
         {
             using (var uow = UnitOfWorkProvider.Create())
