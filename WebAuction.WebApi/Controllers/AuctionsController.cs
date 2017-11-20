@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using WebAuction.BusinessLayer.DataTransferObjects;
@@ -46,7 +47,15 @@ namespace WebAuction.WebApi.Controllers
 
         public async Task<AuctionDto> Get(Guid id)
         {
-            return await AuctionProcessFacade.GetAuctionAsync(id);
+            var auction = await AuctionProcessFacade.GetAuctionAsync(id);
+            if (auction == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+            
+            SafeSetEntityId(new[] {auction});
+
+            return auction;
         }
 
         public async Task<IEnumerable<AuctionDto>> Get()

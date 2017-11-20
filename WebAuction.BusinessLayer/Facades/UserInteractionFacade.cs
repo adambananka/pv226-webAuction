@@ -113,7 +113,7 @@ namespace WebAuction.BusinessLayer.Facades
             }
         }
 
-        public async Task<Guid> CreateRating(RatingDto rating)
+        public async Task<Guid> CreateRatingAsync(RatingDto rating)
         {
             using (var uow = UnitOfWorkProvider.Create())
             {
@@ -123,21 +123,22 @@ namespace WebAuction.BusinessLayer.Facades
             }
         }
 
-        public async Task<bool> EditRating(RatingDto rating)
+        public async Task<bool> EditRatingAsync(RatingDto ratingDto)
         {
             using (var uow = UnitOfWorkProvider.Create())
             {
-                if (await _ratingService.GetAsync(rating.Id, false) == null)
+                var updatedRating = await _ratingService.GetAsync(ratingDto.Id, false);
+                if (updatedRating == null)
                 {
                     return false;
                 }
-                await _ratingService.Update(rating);
+                await _ratingService.Update(ratingDto);
                 await uow.Commit();
                 return true;
             }
         }
 
-        public async Task<bool> DeleteRating(Guid ratingId)
+        public async Task<bool> DeleteRatingAsync(Guid ratingId)
         {
             using (var uow = UnitOfWorkProvider.Create())
             {
