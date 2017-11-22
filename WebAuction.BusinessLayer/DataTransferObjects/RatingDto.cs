@@ -5,6 +5,7 @@ namespace WebAuction.BusinessLayer.DataTransferObjects
 {
     public class RatingDto : DtoBase
     {
+        public Guid SellerId { get; set; }
         public UserDto Seller { get; set; }
 
         public DateTime Time { get; set; }
@@ -43,7 +44,9 @@ namespace WebAuction.BusinessLayer.DataTransferObjects
             {
                 var hashCode = Id.GetHashCode();
                 hashCode = (hashCode * 397) ^ Time.GetHashCode();
-                hashCode = (hashCode * 397) ^ (Seller?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ SellerId.GetHashCode();
+                hashCode = (hashCode * 397) ^ Stars.GetHashCode();
+
                 return hashCode;
             }
         }

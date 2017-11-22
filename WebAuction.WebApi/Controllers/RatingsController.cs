@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using WebAuction.BusinessLayer.DataTransferObjects;
 using WebAuction.BusinessLayer.Facades;
+using WebAuction.WebApi.Models.Ratings;
 
 namespace WebAuction.WebApi.Controllers
 {
@@ -30,6 +31,21 @@ namespace WebAuction.WebApi.Controllers
             SetSafeRating(ratings);
 
             return ratings;
+        }
+
+        public async Task<string> Post([FromBody] RatingCreateModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                throw  new HttpResponseException(HttpStatusCode.BadRequest);
+            }
+            var ratingId = await InteractionFacade.CreateRatingAsync(model.Rating, model.Email);
+            if (ratingId.Equals(Guid.Empty))
+            {
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
+
+            return $"Rating was created with id: {ratingId}";
         }
 
         public async Task<string> Put(Guid id, [FromBody]RatingDto rating)

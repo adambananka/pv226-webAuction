@@ -5,6 +5,7 @@ using WebAuction.BusinessLayer.DataTransferObjects;
 using WebAuction.BusinessLayer.Facades.Common;
 using WebAuction.BusinessLayer.Services.Comments;
 using WebAuction.BusinessLayer.Services.Ratings;
+using WebAuction.BusinessLayer.Services.Users;
 using WebAuction.Infrastructure.UnitOfWork;
 
 namespace WebAuction.BusinessLayer.Facades
@@ -13,12 +14,14 @@ namespace WebAuction.BusinessLayer.Facades
     {
         private readonly ICommentService _commentService;
         private readonly IRatingService _ratingService;
+        private readonly IUserService _userService;
 
         public UserInteractionFacade(IUnitOfWorkProvider unitOfWorkProvider, IRatingService ratingService,
-            ICommentService commentService) : base(unitOfWorkProvider)
+            ICommentService commentService, IUserService userService) : base(unitOfWorkProvider)
         {
             _ratingService = ratingService;
             _commentService = commentService;
+            _userService = userService;
         }
 
         #region CommentOperations
@@ -113,10 +116,11 @@ namespace WebAuction.BusinessLayer.Facades
             }
         }
 
-        public async Task<Guid> CreateRatingAsync(RatingDto rating)
+        public async Task<Guid> CreateRatingAsync(RatingDto rating, string userEmail)
         {
             using (var uow = UnitOfWorkProvider.Create())
             {
+                rating.SellerId = (await _userService.GetUserAccordingToEmailAsync(userEmail)).Id;
                 var ratingId = _ratingService.Create(rating);
                 await uow.Commit();
                 return ratingId;

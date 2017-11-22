@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAuction.BusinessLayer.Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAuction.WebApi", "WebAuction.WebApi\WebAuction.WebApi.csproj", "{A4BC08B0-2BC0-425A-A57C-8802097B242B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAuction.PresentationLayer", "WebAuction.PresentationLayer\WebAuction.PresentationLayer.csproj", "{99CBECD2-3CDE-4586-B214-A0A6E98596FB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{A4BC08B0-2BC0-425A-A57C-8802097B242B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4BC08B0-2BC0-425A-A57C-8802097B242B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4BC08B0-2BC0-425A-A57C-8802097B242B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99CBECD2-3CDE-4586-B214-A0A6E98596FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99CBECD2-3CDE-4586-B214-A0A6E98596FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99CBECD2-3CDE-4586-B214-A0A6E98596FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99CBECD2-3CDE-4586-B214-A0A6E98596FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
