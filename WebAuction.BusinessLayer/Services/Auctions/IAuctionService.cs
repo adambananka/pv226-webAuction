@@ -26,6 +26,13 @@ namespace WebAuction.BusinessLayer.Services.Auctions
         Task<IEnumerable<AuctionDto>> GetAuctionsAccordingToCategoriesAsync(Guid[] categoryIds);
 
         /// <summary>
+        /// Gets active auctions within given categories
+        /// </summary>
+        /// <param name="categoryIds">ids of categories</param>
+        /// <returns>Active auctions within given categories</returns>
+        Task<IEnumerable<AuctionDto>> GetActiveAuctionsAccordingToCategoriesAsync(Guid[] categoryIds);
+
+        /// <summary>
         /// Gets auctions with given name
         /// </summary>
         /// <param name="name">auction's name</param>
@@ -33,15 +40,11 @@ namespace WebAuction.BusinessLayer.Services.Auctions
         Task<IEnumerable<AuctionDto>> GetAuctionsAccordingToNameAsync(string name);
 
         /// <summary>
-        /// Gets auctions with given parameters
-        /// Null should be used to ignore name/sellerId/categoryIds
+        /// Gets active auctions with given name
         /// </summary>
         /// <param name="name">auction's name</param>
-        /// <param name="sellerId">seller's id</param>
-        /// <param name="categoryIds">ids of categories</param>
-        /// <param name="maximalPrice">maximal actual price of auction item</param>
-        /// <returns>Auctions with given parameters</returns>
-        Task<IEnumerable<AuctionDto>> GetAuctionsAccordingToFilterAsync(string name, Guid sellerId, Guid[] categoryIds, decimal maximalPrice = decimal.MaxValue);
+        /// <returns>Active auctions with given name</returns>
+        Task<IEnumerable<AuctionDto>> GetActiveAuctionsAccordingToNameAsync(string name);
 
         /// <summary>
         /// Gets DTO representing the entity according to ID

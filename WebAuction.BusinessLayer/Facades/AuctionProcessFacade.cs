@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using WebAuction.BusinessLayer.DataTransferObjects;
 using WebAuction.BusinessLayer.DataTransferObjects.Common;
@@ -9,6 +10,7 @@ using WebAuction.BusinessLayer.Services.Auctions;
 using WebAuction.BusinessLayer.Services.Bids;
 using WebAuction.BusinessLayer.Services.Categories;
 using WebAuction.BusinessLayer.Services.ClosingAuction;
+using WebAuction.BusinessLayer.Services.Users;
 using WebAuction.Infrastructure.UnitOfWork;
 
 namespace WebAuction.BusinessLayer.Facades
@@ -19,15 +21,17 @@ namespace WebAuction.BusinessLayer.Facades
         private readonly IClosingAuctionService _closingAuctionService;
         private readonly IBidService _bidService;
         private readonly ICategoryService _categoryService;
+        private readonly IUserService _userService;
 
         public AuctionProcessFacade(IUnitOfWorkProvider unitOfWorkProvider, IAuctionService auctionService,
-            IClosingAuctionService closingAuctionService, IBidService bidService, ICategoryService categoryService)
+            IClosingAuctionService closingAuctionService, IBidService bidService, ICategoryService categoryService, IUserService userService)
             : base(unitOfWorkProvider)
         {
             _auctionService = auctionService;
             _closingAuctionService = closingAuctionService;
             _bidService = bidService;
             _categoryService = categoryService;
+            _userService = userService;
         }
 
         #region AuctionCRUD
@@ -42,7 +46,6 @@ namespace WebAuction.BusinessLayer.Facades
 
         public async Task<QueryResultDto<AuctionDto, AuctionFilterDto>> GetAuctionsAsync(AuctionFilterDto filter)
         {
-            // TODO - dorobit includeOnlyActiveAuctions
             using (UnitOfWorkProvider.Create())
             {
                 return await _auctionService.ListAuctionsAsync(filter);
@@ -59,6 +62,14 @@ namespace WebAuction.BusinessLayer.Facades
             }
         }
 
+        public async Task<IEnumerable<AuctionDto>> GetActiveAuctionsAccordingToNameAsync(string name)
+        {
+            using (UnitOfWorkProvider.Create())
+            {
+                return await _auctionService.GetActiveAuctionsAccordingToNameAsync(name);
+            }
+        }
+
         public async Task<IEnumerable<AuctionDto>> GetAuctionsAccordingToCategoriesAsync(Guid[] categoryIds)
         {
             using (UnitOfWorkProvider.Create())
@@ -67,12 +78,11 @@ namespace WebAuction.BusinessLayer.Facades
             }
         }
 
-        public async Task<IEnumerable<AuctionDto>> GetAuctionsAccordingToFilterAsync(string name, Guid[] categoryIds,
-            decimal maxPrice = decimal.MaxValue)
+        public async Task<IEnumerable<AuctionDto>> GetActiveAuctionsAccordingToCategoriesAsync(Guid[] categoryIds)
         {
             using (UnitOfWorkProvider.Create())
             {
-                return await _auctionService.GetAuctionsAccordingToFilterAsync(name, Guid.Empty, categoryIds, maxPrice);
+                return await _auctionService.GetActiveAuctionsAccordingToCategoriesAsync(categoryIds);
             }
         }
 
@@ -86,10 +96,12 @@ namespace WebAuction.BusinessLayer.Facades
             }
         }
 
-        public async Task<Guid> CreateAuction(AuctionDto auction)
+        public async Task<Guid> CreateAuctionAsync(AuctionDto auction, string userEmail, string categoryName)
         {
             using (var uow = UnitOfWorkProvider.Create())
             {
+                auction.CategoryId = (await _categoryService.GetCategoriesAccordingToNameAsync(new[] {categoryName})).First().Id;
+                auction.SellerId = (await _userService.GetUserAccordingToEmailAsync(userEmail)).Id;
                 var auctionId = _auctionService.Create(auction);
                 await uow.Commit();
                 return auctionId;

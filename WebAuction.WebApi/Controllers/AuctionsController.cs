@@ -6,6 +6,7 @@ using System.Web.Http;
 using WebAuction.BusinessLayer.DataTransferObjects;
 using WebAuction.BusinessLayer.DataTransferObjects.Filters;
 using WebAuction.BusinessLayer.Facades;
+using WebAuction.WebApi.Models.Auctions;
 
 namespace WebAuction.WebApi.Controllers
 {
@@ -65,6 +66,46 @@ namespace WebAuction.WebApi.Controllers
             SafeSetEntityId(auctions);
 
             return auctions;
+        }
+
+        public async Task<string> Post([FromBody] AuctionCreateModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
+            var auctionId =
+                await AuctionProcessFacade.CreateAuctionAsync(model.Auction, model.UserEmail, model.CategoryName);
+            if (auctionId.Equals(Guid.Empty))
+            {
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
+            return $"Auction was created with id: {auctionId}";
+        }
+
+        public async Task<string> Put(Guid id, [FromBody]AuctionDto auction)
+        {
+            if (!ModelState.IsValid)
+            {
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
+            var success = await AuctionProcessFacade.EditAuction(auction);
+            if (!success)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+            return $"Updated auction with id: {id}";
+        }
+
+        public async Task<string> Delete(Guid id)
+        {
+            var success = await AuctionProcessFacade.DeleteAuction(id);
+            if (!success)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+
+            return $"Deleted auction with id: {id}";
         }
 
         private static void SafeSetEntityId(IEnumerable<AuctionDto> auctions)

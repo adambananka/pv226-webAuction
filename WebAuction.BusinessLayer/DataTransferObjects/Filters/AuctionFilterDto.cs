@@ -11,6 +11,8 @@ namespace WebAuction.BusinessLayer.DataTransferObjects.Filters
 
         public Guid[] CategoryIds { get; set; }
 
+        public bool OnlyActive { get; set; } = false;
+
         public decimal MaximalActualPrice { get; set; } = decimal.MaxValue;
 
         public decimal MinimalActualPrice { get; set; } = decimal.MinValue;

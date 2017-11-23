@@ -22,6 +22,7 @@ namespace WebAuction.BusinessLayer.QueryObjects
             AddIfDefined(FilterItemName(filter), definedPredicates);
             AddIfDefined(FilterSeller(filter), definedPredicates);
             AddIfDefined(FilterCategories(filter), definedPredicates);
+            AddIfDefined(FilterOnlyActive(filter), definedPredicates);
             AddIfDefined(FilterMaximalPrice(filter), definedPredicates);
             AddIfDefined(FilterMinimalPrice(filter), definedPredicates);
             AddIfDefined(FilterMinimalEndTime(filter), definedPredicates);
@@ -71,6 +72,13 @@ namespace WebAuction.BusinessLayer.QueryObjects
                 .Select(categoryId =>
                     new SimplePredicate(nameof(Auction.CategoryId), ValueComparingOperator.Equal, categoryId)));
             return new CompositePredicate(predicates, LogicalOperator.OR);
+        }
+
+        private static SimplePredicate FilterOnlyActive(AuctionFilterDto filter)
+        {
+            return !filter.OnlyActive 
+                ? null 
+                : new SimplePredicate(nameof(Auction.Ended), ValueComparingOperator.Equal, filter.OnlyActive);
         }
 
         private static SimplePredicate FilterMaximalPrice(AuctionFilterDto filter)

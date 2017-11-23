@@ -38,23 +38,21 @@ namespace WebAuction.BusinessLayer.Services.Auctions
             return queryResult.Items;
         }
 
+        public async Task<IEnumerable<AuctionDto>> GetActiveAuctionsAccordingToCategoriesAsync(Guid[] categoryIds)
+        {
+            var queryResult = await Query.ExecuteQuery(new AuctionFilterDto { CategoryIds = categoryIds, OnlyActive = true});
+            return queryResult.Items;
+        }
+
         public async Task<IEnumerable<AuctionDto>> GetAuctionsAccordingToNameAsync(string name)
         {
             var queryResult = await Query.ExecuteQuery(new AuctionFilterDto {SearchedName = name});
             return queryResult.Items;
         }
 
-        public async Task<IEnumerable<AuctionDto>> GetAuctionsAccordingToFilterAsync(string name, Guid sellerId,
-            Guid[] categoryIds,
-            decimal maximalPrice = decimal.MaxValue)
+        public async Task<IEnumerable<AuctionDto>> GetActiveAuctionsAccordingToNameAsync(string name)
         {
-            var queryResult = await Query.ExecuteQuery(new AuctionFilterDto
-            {
-                SearchedName = name,
-                SellerId = sellerId,
-                CategoryIds = categoryIds,
-                MaximalActualPrice = maximalPrice
-            });
+            var queryResult = await Query.ExecuteQuery(new AuctionFilterDto { SearchedName = name, OnlyActive = true});
             return queryResult.Items;
         }
 
