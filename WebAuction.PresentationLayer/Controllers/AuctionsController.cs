@@ -49,7 +49,7 @@ namespace WebAuction.PresentationLayer.Controllers
         public async Task<ActionResult> Details(Guid id)
         {
             var model = await AuctionProcessFacade.GetAuctionAsync(id);
-            throw new NotImplementedException("trololo");
+            return View("AuctionDetailView", model);
         }
 
         #region Helper methods

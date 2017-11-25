@@ -102,7 +102,7 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
                 Id = Guid.Parse("0558b662-2aa8-438e-928c-571adb8b241b"),
                 Name = "Longclaw - best auction ever",
                 Description = "A big sword",
-                PhotoUri = @"\Content\sword.jpg",
+                PhotoUri = @"\Content\Images\Auctions\sword.jpg",
                 CategoryId = art.Id,
                 Category = art,
                 SellerId = jonSnow.Id,
