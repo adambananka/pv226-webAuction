@@ -46,16 +46,22 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
 
             #endregion
 
-            #region Users
+            #region UserLogins
 
-            var admin = new User
+            var admin = new UserLogin
             {
-                Id = Guid.Parse("66e82542-33e6-4cc1-b40b-61f7845a406b"),
-                Name = "I am the admin",
-                Login = "admin",
-                PasswordHash = "Password1",
-                PasswordSal = "Pa$$w0rd1"
+                Id = Guid.Parse("ab00dc64-5c07-40fe-a916-175165b9b90f"),
+                Username = "admin",
+                PasswordHash = "ZXnjeNKhDTSH6Rc6q4++tVoQVHo=", //  pass: PV226jesuper
+                PasswordSalt = "hFrDVp5UB9eMycpU+4wSEA==",
+                Roles = "Admin"
             };
+
+            context.UserLogins.AddOrUpdate(admin);
+
+            #endregion
+
+            #region Users
 
             var jonSnow = new User
             {
@@ -64,10 +70,12 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
                 Address = "Winterfell",
                 Email = "youknow@nothing.ws",
                 Phone = "4527453652",
-                Login = "lordCommander",
-                PasswordHash = "bastard",
-                PasswordSal = "123tard"
+                Username = "john",
+                BirthDate = DateTime.Now.AddYears(-20),
+                PasswordHash = "FuQPWbHATtEPh0CO1i6tUqI65/k=", // pass: qwerty123
+                PasswordSalt = "WMYJiF/FT8bEchjALl3bCg=="
             };
+
             var waltWhite = new User
             {
                 Id = Guid.Parse("23ba41d2-2f82-430d-87b3-9e2e145be7c7"),
@@ -75,10 +83,12 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
                 Address = "Albaquerque",
                 Email = "heisenberg@bluestuff.com",
                 Phone = "7524943851",
-                Login = "methBoss737",
-                PasswordHash = "lungCancerSucks",
-                PasswordSal = "lungCancer12345"
+                Username = "walter",
+                BirthDate = DateTime.Now.AddYears(-52),
+                PasswordHash = "FuQPWbHATtEPh0CO1i6tUqI65/k=", // pass: qwerty123
+                PasswordSalt = "WMYJiF/FT8bEchjALl3bCg=="
             };
+
             var barryAllen = new User
             {
                 Id = Guid.Parse("5d1114de-4ede-4550-b6ae-a47923a8169f"),
@@ -86,11 +96,13 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
                 Address = "Central City",
                 Email = "flash@starlabs.com",
                 Phone = "9763425842",
-                Login = "redStreak77",
-                PasswordHash = "runBarryRun",
-                PasswordSal = "runBarry123"
+                Username = "barry",
+                BirthDate = DateTime.Now.AddYears(-18),
+                PasswordHash = "FuQPWbHATtEPh0CO1i6tUqI65/k=", // pass: qwerty123
+                PasswordSalt = "WMYJiF/FT8bEchjALl3bCg=="
             };
-            context.Users.AddOrUpdate(user => user.Id, admin, jonSnow, waltWhite, barryAllen);
+
+            context.Users.AddOrUpdate(user => user.Id, jonSnow, waltWhite, barryAllen);
 
             #endregion
 

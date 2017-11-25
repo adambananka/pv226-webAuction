@@ -46,7 +46,5 @@ namespace WebAuction.BusinessLayer.Services.Users
         /// </summary>
         /// <returns>all available dtos (for given type)</returns>
         Task<QueryResultDto<UserDto, UserFilterDto>> ListAllAsync();
-
-        Guid CreateCustomer(UserCompleteDto user);
     }
 }

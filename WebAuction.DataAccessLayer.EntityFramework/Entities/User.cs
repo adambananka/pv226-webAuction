@@ -5,14 +5,8 @@ using WebAuction.Infrastructure;
 
 namespace WebAuction.DataAccessLayer.EntityFramework.Entities
 {
-    public class User : IEntity
+    public class User : UserLogin
     {
-        [NotMapped]
-        public string TableName { get; set; } = nameof(WebAuctionDbContext.Users);
-
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public Guid Id { get; set; }
-
         [Required]
         [StringLength(128)]
         [Display(Name = "Full Name")]
@@ -27,15 +21,6 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Entities
         [Phone]
         public string Phone { get; set; }
 
-        public bool IsAdmin { get; set; }
-
-        [Required, StringLength(64)]
-        public string Login { get; set; }
-
-        [Required, StringLength(64)]
-        public string PasswordHash { get; set; }
-
-        [Required, StringLength(64)]
-        public string PasswordSal { get; set; }
+        public DateTime BirthDate { get; set; } = new DateTime(1, 1, 1);
     }
 }

@@ -52,6 +52,8 @@ namespace WebAuction.PresentationLayer.Controllers
             return View("AuctionDetailView", model);
         }
 
+        
+
         #region Helper methods
 
         /// <summary>

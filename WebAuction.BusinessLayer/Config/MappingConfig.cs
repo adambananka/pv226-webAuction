@@ -23,12 +23,16 @@ namespace WebAuction.BusinessLayer.Config
                     return categoryPath;
                 })).ReverseMap();
             config.CreateMap<Bid, BidDto>().ReverseMap();
-            config.CreateMap<User, UserDto>().ReverseMap();
             config.CreateMap<Rating, RatingDto>().ReverseMap();
             config.CreateMap<Comment, CommentDto>().ReverseMap();
             config.CreateMap<Payment, PaymentDto>().ReverseMap();
             config.CreateMap<Auction, AuctionDto>().ReverseMap();
+            config.CreateMap<UserLogin, UserLoginDto>().ReverseMap();
+            config.CreateMap<UserLogin, UserRegistrationDto>().ReverseMap();
+            config.CreateMap<User, UserRegistrationDto>().ReverseMap();
+            config.CreateMap<User, UserDto>().ReverseMap();
             config.CreateMap<QueryResult<User>, QueryResultDto<UserDto, UserFilterDto>>();
+            config.CreateMap<QueryResult<UserLogin>, QueryResultDto<UserLoginDto, UserLoginFilterDto>>();
             config.CreateMap<QueryResult<Category>, QueryResultDto<CategoryDto, CategoryFilterDto>>();
             config.CreateMap<QueryResult<Bid>, QueryResultDto<BidDto, BidFilterDto>>();
             config.CreateMap<QueryResult<Rating>, QueryResultDto<RatingDto, RatingFilterDto>>();

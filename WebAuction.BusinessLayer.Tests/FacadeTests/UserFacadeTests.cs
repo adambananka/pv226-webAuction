@@ -5,6 +5,7 @@ using WebAuction.BusinessLayer.DataTransferObjects;
 using WebAuction.BusinessLayer.DataTransferObjects.Common;
 using WebAuction.BusinessLayer.DataTransferObjects.Filters;
 using WebAuction.BusinessLayer.Facades;
+using WebAuction.BusinessLayer.Services.UserLogins;
 using WebAuction.BusinessLayer.Services.Users;
 using WebAuction.BusinessLayer.Tests.FacadeTests.Common;
 using WebAuction.DataAccessLayer.EntityFramework.Entities;
@@ -79,10 +80,16 @@ namespace WebAuction.BusinessLayer.Tests.FacadeTests
             var uowMock = FacadeMockManager.GetUowMock();
             var mapperMock = FacadeMockManager.GetMapper();
             var repositoryMock = mockFacadeManager.GetRepositoryMock<User>();
-            var queryObjectMock = mockFacadeManager.GetQueryObjectMock<UserDto, User, UserFilterDto>(result);
-            var userServiceMock = new UserService(mapperMock, repositoryMock.Object, queryObjectMock.Object);
+            var userQueryObjectMock = mockFacadeManager.GetQueryObjectMock<UserDto, User, UserFilterDto>(result);
+            var userLoginQueryObjectMock =
+                mockFacadeManager.GetQueryObjectMock<UserLoginDto, UserLogin, UserLoginFilterDto>(null);
+            var userService = new UserService(mapperMock, repositoryMock.Object, userQueryObjectMock.Object);
+            var userLoginService = new UserLoginService(mapperMock, repositoryMock.Object,
+                userLoginQueryObjectMock.Object);
 
-            return new UserFacade(uowMock.Object, userServiceMock);
+            var userFacade = new UserFacade(uowMock.Object, userService, userLoginService);
+
+            return userFacade;
         }
     }
 }

@@ -44,6 +44,9 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Xml" />
@@ -67,10 +70,12 @@
     <Compile Include="DataTransferObjects\Filters\PaymentFilterDto.cs" />
     <Compile Include="DataTransferObjects\Filters\RatingFilterDto.cs" />
     <Compile Include="DataTransferObjects\Filters\UserFilterDto.cs" />
+    <Compile Include="DataTransferObjects\Filters\UserLoginFilterDto.cs" />
     <Compile Include="DataTransferObjects\PaymentDto.cs" />
     <Compile Include="DataTransferObjects\RatingDto.cs" />
     <Compile Include="DataTransferObjects\UserDto.cs" />
-    <Compile Include="DataTransferObjects\UserCompleteDto.cs" />
+    <Compile Include="DataTransferObjects\UserLoginDto.cs" />
+    <Compile Include="DataTransferObjects\UserRegistrationDto.cs" />
     <Compile Include="Facades\AuctionProcessFacade.cs" />
     <Compile Include="Facades\Common\FacadeBase.cs" />
     <Compile Include="Facades\UserFacade.cs" />
@@ -83,6 +88,7 @@
     <Compile Include="QueryObjects\Common\QueryObjectBase.cs" />
     <Compile Include="QueryObjects\PaymentQueryObject.cs" />
     <Compile Include="QueryObjects\RatingQueryObject.cs" />
+    <Compile Include="QueryObjects\UserLoginQueryObject.cs" />
     <Compile Include="QueryObjects\UserQueryObject.cs" />
     <Compile Include="Services\Auctions\AuctionService.cs" />
     <Compile Include="Services\Auctions\IAuctionService.cs" />
@@ -100,6 +106,8 @@
     <Compile Include="Services\Payments\PaymentService.cs" />
     <Compile Include="Services\Ratings\IRatingService.cs" />
     <Compile Include="Services\Ratings\RatingService.cs" />
+    <Compile Include="Services\UserLogins\IUserLoginService.cs" />
+    <Compile Include="Services\UserLogins\UserLoginService.cs" />
     <Compile Include="Services\Users\IUserService.cs" />
     <Compile Include="Services\Users\UserService.cs" />
   </ItemGroup>
