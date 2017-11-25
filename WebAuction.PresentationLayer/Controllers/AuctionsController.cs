@@ -14,7 +14,7 @@ namespace WebAuction.PresentationLayer.Controllers
 {
     public class AuctionsController : Controller
     {
-        public const int PageSize = 9;
+        public const int PageSize = 2;
 
         private const string FilterSessionKey = "filter";
         private const string CategoryTreesSessionKey = "categoryTrees";
@@ -24,7 +24,7 @@ namespace WebAuction.PresentationLayer.Controllers
 
         public async Task<ActionResult> Index(int page = 1)
         {
-            var filter = Session[FilterSessionKey] as AuctionFilterDto ?? new AuctionFilterDto { PageSize = PageSize };
+            var filter = Session[FilterSessionKey] as AuctionFilterDto ?? new AuctionFilterDto { PageSize = PageSize/*, OnlyActive = true*/};
             filter.RequestedPageNumber = page;
             var result = await AuctionProcessFacade.GetAuctionsAsync(filter);
 
@@ -37,13 +37,20 @@ namespace WebAuction.PresentationLayer.Controllers
         public async Task<ActionResult> Index(AuctionListViewModel model)
         {
             model.Filter.PageSize = PageSize;
-            model.Filter.CategoryIds = ProcessCategoryIds(model);
+            //model.Filter.CategoryIds = ProcessCategoryIds(model);
             Session[FilterSessionKey] = model.Filter;
             Session[CategoryTreesSessionKey] = model.Categories;
 
             var result = await AuctionProcessFacade.GetAuctionsAsync(model.Filter);
             var newModel = await InitializeProductListViewModel(result, model.Categories);
             return View("AuctionListView", newModel);
+        }
+
+        public ActionResult ClearFilter()
+        {
+            Session[FilterSessionKey] = null;
+            Session[CategoryTreesSessionKey] = null;
+            return RedirectToAction(nameof(Index));
         }
 
         public async Task<ActionResult> Details(Guid id)
