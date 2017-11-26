@@ -78,7 +78,7 @@
     @{
         foreach (var auction in Model.Auctions)
         {
-            <div class="clickable-area" @("onclick=GoToDetail('" + auction.Id + "')")>
+            <div class="clickable-area" @("onclick=GoToDetail('" + auction.Id + "')") style="cursor: pointer">
 
                 <div class="caption text-center">
                     <h3 style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" id="thumbnail-label">@auction.Name</h3>
