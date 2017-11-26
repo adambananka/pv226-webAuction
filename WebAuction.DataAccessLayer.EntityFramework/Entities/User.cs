@@ -1,7 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using WebAuction.Infrastructure;
 
 namespace WebAuction.DataAccessLayer.EntityFramework.Entities
 {

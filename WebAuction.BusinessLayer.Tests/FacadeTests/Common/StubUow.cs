@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using WebAuction.Infrastructure.UnitOfWork;
 
 namespace WebAuction.BusinessLayer.Tests.FacadeTests.Common
