@@ -78,7 +78,7 @@ namespace WebAuction.BusinessLayer.QueryObjects
         {
             return !filter.OnlyActive 
                 ? null 
-                : new SimplePredicate(nameof(Auction.Ended), ValueComparingOperator.Equal, filter.OnlyActive);
+                : new SimplePredicate(nameof(Auction.Ended), ValueComparingOperator.Equal, false);
         }
 
         private static SimplePredicate FilterMaximalPrice(AuctionFilterDto filter)

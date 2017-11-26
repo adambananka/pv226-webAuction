@@ -233,6 +233,7 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
                 BidAmount = blueStuffAuction.MinimalBid,
                 NewItemPrice = blueStuffAuction.ActualPrice + blueStuffAuction.MinimalBid
             };
+            blueStuffAuction.ActualPrice = bid0.NewItemPrice;
             var bid1 = new Bid
             {
                 Id = Guid.Parse("25ed6c98-4bd9-4a68-b428-77be652c385f"),
@@ -244,6 +245,7 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
                 BidAmount = tachyonAuction.BuyoutPrice - tachyonAuction.StartingPrice,
                 NewItemPrice = tachyonAuction.BuyoutPrice
             };
+            tachyonAuction.ActualPrice = bid1.NewItemPrice;
             context.Bids.AddOrUpdate(bid => bid.Id, bid0, bid1);
 
             #endregion

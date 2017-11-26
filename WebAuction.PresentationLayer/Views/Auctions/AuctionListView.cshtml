@@ -7,24 +7,116 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>AuctionListView</h2>
+@section head{
+    @Styles.Render("~/Content/tree.css")
+    @Styles.Render("~/Content/PagedList.css")
+}
 
-<div class="panel">
+<h2>Available Auctions</h2>
+
+<div class="panel panel-primary col-md-3 col-sm-4 col-xs-12">
+    
+    @using (Html.BeginForm())
+    {
+        <div class="form-group text-center">
+            <b>
+                Price: <span id="spanOutput"></span>
+            </b>
+            <div id="slider" class="col-md-8 col-md-offset-2"></div>
+            <input id="txtMin" type="hidden" name="Filter.MinimalPrice" />
+            <input id="txtMax" type="hidden" name="Filter.MaximalPrice" />
+        </div>
+        <br />
+
+        <div class="form-group col-md-12">
+            @Html.LabelFor(model => model.Filter.SearchedName, "Auction Name", new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.Filter.SearchedName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Filter.SearchedName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group col-md-12">
+            @Html.LabelFor(model => model.Filter.OnlyActive, "Only Active", new { @class = "control-label col-md-4" })
+            <div class="col-md-5 col-md-offset-3">
+                @Html.CheckBoxFor(model => model.Filter.OnlyActive, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Filter.OnlyActive, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group col-md-12">
+            @Html.LabelFor(model => model.Filter.SortCriteria, "Sort by:", new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @Html.DropDownListFor(model => model.Filter.SortCriteria, Model.AllSortCriteria, "Select...", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Filter.SortCriteria, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group col-md-12">
+            @Html.LabelFor(model => model.Filter.SortAscending, "Ascending", new { @class = "control-label col-md-4" })
+            <div class="col-md-5 col-md-offset-3">
+                @Html.CheckBoxFor(model => model.Filter.SortAscending, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Filter.SortAscending, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div>
+                <input type="button" class="btn btn-danger  col-md-offset-1 col-md-4" value="Clear" onclick="resetRange();location.href = '@Url.Action("ClearFilter", "Auctions")';" />
+            </div>
+            <div class="form-group">
+                <button class="btn btn-success col-md-offset-1 col-md-5" id="btnSubmit" type="submit" onclick="saveRange()">Filter </button>
+            </div>
+        </div>
+
+    }
+
+</div>
+
+<div class="panel panel-default col-md-9 col-sm-8 col-xs-12">
     @{
         foreach (var auction in Model.Auctions)
         {
             <div class="clickable-area" @("onclick=GoToDetail('" + auction.Id + "')")>
 
-                <div class="row text-center">
-                    <img src="@auction.PhotoUri" class="img-responsive imageClip">
-                </div>
                 <div class="caption text-center">
-                    <h4 style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" id="thumbnail-label">@auction.Name</h4>
+                    <h3 style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" id="thumbnail-label">@auction.Name</h3>
                 </div>
-                <p style="height: 80px; width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: normal; text-align: justify;">@auction.Description</p>
+                <div class="panel text-left">
+                    <img src="@auction.PhotoUri" class="img-responsive imageClip" style="max-height: 300px; max-width: 300px;">
+                </div>
+                <div class="panel">
+                    <p>@auction.Description</p>
+                    
+                    @if (auction.ActualPrice < auction.BuyoutPrice - 1000)
+                    {
+                        <div class="row">
+                            <p>Buyout price: @auction.BuyoutPrice</p>
+                        </div>
+                    }
+                    
+                    <div class="row">
+                        @if (!auction.Ended)
+                        {
+                            <strong class="text-danger">Actual Bid: @auction.ActualPrice</strong>
+                            <p>Ends: @auction.EndTime</p>
+                        }
+                        else
+                        {
+                            <strong class="text-danger">ENDED</strong>
+                        }
+                    </div>
+                    
+                </div>
+                
             </div>
         }
     }
+</div>
+
+<div class="text-center col-md-12">
+    @Html.PagedListPager(Model.Auctions, page => Url.Action("Index", new {page}))
 </div>
 
 
