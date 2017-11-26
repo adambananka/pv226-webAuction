@@ -214,6 +214,9 @@
     <Reference Include="X.PagedList, Version=7.1.7.0, Culture=neutral, PublicKeyToken=00b6c4f97602e5e8, processorArchitecture=MSIL">
       <HintPath>..\packages\X.PagedList.7.1.7\lib\netstandard1.2\X.PagedList.dll</HintPath>
     </Reference>
+    <Reference Include="X.PagedList.Mvc, Version=7.1.7.0, Culture=neutral, PublicKeyToken=c6e0b5b21f916f4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\X.PagedList.Mvc.7.1.7\lib\net452\X.PagedList.Mvc.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
