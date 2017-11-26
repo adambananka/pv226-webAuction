@@ -89,7 +89,7 @@
                 <div class="panel">
                     <p>@auction.Description</p>
                     
-                    @if (auction.ActualPrice < auction.BuyoutPrice - 1000)
+                    @if (auction.ActualPrice <= auction.BuyoutPrice * 0.95m)
                     {
                         <div class="row">
                             <p>Buyout price: @auction.BuyoutPrice</p>
