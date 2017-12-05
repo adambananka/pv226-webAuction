@@ -1,4 +1,5 @@
-﻿@model WebAuction.BusinessLayer.DataTransferObjects.AuctionDto
+﻿@using Microsoft.AspNet.Identity;
+@model WebAuction.BusinessLayer.DataTransferObjects.AuctionDto
 
 @{
     ViewBag.Title = "AuctionDetailView";
@@ -27,14 +28,14 @@
                         <span class="glyphicon glyphicon-minus"></span>
                     </button>
                 </span>
-                <input type="text" name="quant[1]" class="form-control input-number" value="@Model.MinimalBid" min="@Model.MinimalBid" max="999999">
+                <input type="text" id="txtBidAmount" name="quant[1]" class="form-control input-number" value="@Model.MinimalBid" min="@Model.MinimalBid" max="999999">
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]">
                         <span class="glyphicon glyphicon-plus"></span>
                     </button>
                 </span>
                 <span class="input-group-btn">
-                    <button type="button" class="btn btn-success" id="btnBid" onclick="">
+                    <button type="button" class="btn btn-success" id="btnBid" onclick="@Url.Action("MakeBid", "Auctions", new {auction = Model, bidAmount = txtBidAmount.Value, strBidderId = User.Identity.GetUserId()})">
                         Bid
                     </button>
                 </span>

@@ -59,6 +59,20 @@ namespace WebAuction.PresentationLayer.Controllers
             return View("AuctionDetailView", model);
         }
 
+        public ActionResult MakeBid(AuctionDto auction, string bidAmount, string strBidderId)
+        {
+            var bidderId = Guid.Parse(strBidderId);
+            var bid = new BidDto
+            {
+                AuctionId = auction.Id,
+                BidAmount = decimal.Parse(bidAmount),
+                BuyerId = bidderId,
+                NewItemPrice = auction.ActualPrice + decimal.Parse(bidAmount),
+                Time = DateTime.Now
+            };
+            AuctionProcessFacade.MakeBidToAuction(bid);
+            return RedirectToAction("Index");
+        }
         
 
         #region Helper methods
