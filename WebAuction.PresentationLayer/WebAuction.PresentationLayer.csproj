@@ -237,6 +237,7 @@
     </Compile>
     <Compile Include="Helpers\AuthorizeRoles.cs" />
     <Compile Include="Models\Accounts\LoginModel.cs" />
+    <Compile Include="Models\Auctions\AuctionDetailViewModel.cs" />
     <Compile Include="Models\Auctions\AuctionEditModel.cs" />
     <Compile Include="Models\Auctions\AuctionListViewModel.cs" />
     <Compile Include="Models\Categories\CategoryCreateModel.cs" />

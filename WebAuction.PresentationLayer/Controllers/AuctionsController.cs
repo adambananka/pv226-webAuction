@@ -20,6 +20,7 @@ namespace WebAuction.PresentationLayer.Controllers
         private const string CategoryTreesSessionKey = "categoryTrees";
 
         public AuctionProcessFacade AuctionProcessFacade { get; set; }
+        public UserInteractionFacade UserInteractionFacade { get; set; }
 
         public async Task<ActionResult> Index(int page = 1)
         {
@@ -55,7 +56,11 @@ namespace WebAuction.PresentationLayer.Controllers
 
         public async Task<ActionResult> Details(Guid id)
         {
-            var model = await AuctionProcessFacade.GetAuctionAsync(id);
+            var model = new AuctionDetailViewModel
+            {
+                Auction = await AuctionProcessFacade.GetAuctionAsync(id),
+                Comments = (await UserInteractionFacade.GetCommentsAccordingToAuction(id)).ToList()
+            };
             return View("AuctionDetailView", model);
         }
 
