@@ -10,7 +10,7 @@ using WebAuction.BusinessLayer.Services.Auctions;
 using WebAuction.BusinessLayer.Services.Bids;
 using WebAuction.BusinessLayer.Services.Categories;
 using WebAuction.BusinessLayer.Services.ClosingAuction;
-using WebAuction.BusinessLayer.Services.Users;
+using WebAuction.BusinessLayer.Services.UserLogins;
 using WebAuction.Infrastructure.UnitOfWork;
 
 namespace WebAuction.BusinessLayer.Facades
@@ -21,17 +21,17 @@ namespace WebAuction.BusinessLayer.Facades
         private readonly IClosingAuctionService _closingAuctionService;
         private readonly IBidService _bidService;
         private readonly ICategoryService _categoryService;
-        private readonly IUserService _userService;
+        private readonly IUserLoginService _userLoginService;
 
         public AuctionProcessFacade(IUnitOfWorkProvider unitOfWorkProvider, IAuctionService auctionService,
-            IClosingAuctionService closingAuctionService, IBidService bidService, ICategoryService categoryService, IUserService userService)
+            IClosingAuctionService closingAuctionService, IBidService bidService, ICategoryService categoryService, IUserLoginService userLoginService)
             : base(unitOfWorkProvider)
         {
             _auctionService = auctionService;
             _closingAuctionService = closingAuctionService;
             _bidService = bidService;
             _categoryService = categoryService;
-            _userService = userService;
+            _userLoginService = userLoginService;
         }
 
         #region AuctionCRUD
@@ -42,7 +42,7 @@ namespace WebAuction.BusinessLayer.Facades
             {
                 return await _auctionService.GetAsync(auctionId);
             }
-        }
+        }   
 
         public async Task<QueryResultDto<AuctionDto, AuctionFilterDto>> GetAuctionsAsync(AuctionFilterDto filter)
         {
@@ -96,12 +96,12 @@ namespace WebAuction.BusinessLayer.Facades
             }
         }
 
-        public async Task<Guid> CreateAuctionAsync(AuctionDto auction, string userEmail, string categoryName)
+        public async Task<Guid> CreateAuctionWithCategoryNameForUserAsync(AuctionDto auction, string userLogin, string categoryName)
         {
             using (var uow = UnitOfWorkProvider.Create())
             {
-                auction.CategoryId = (await _categoryService.GetCategoriesAccordingToNameAsync(new[] {categoryName})).First().Id;
-                auction.SellerId = (await _userService.GetUserAccordingToEmailAsync(userEmail)).Id;
+                auction.CategoryId = (await _categoryService.GetCategoriesIdsAccordingToNameAsync(new[] {categoryName})).FirstOrDefault();
+                auction.SellerId = (await _userLoginService.GetUserAccordingToUsernameAsync(userLogin)).Id;
                 var auctionId = _auctionService.Create(auction);
                 await uow.Commit();
                 return auctionId;
@@ -130,6 +130,7 @@ namespace WebAuction.BusinessLayer.Facades
                 {
                     return false;
                 }
+
                 _auctionService.Delete(auctionId);
                 await uow.Commit();
                 return true;
@@ -188,19 +189,56 @@ namespace WebAuction.BusinessLayer.Facades
 
         #region CategoriesManagement
 
-        public async Task<CategoryDto> GetCategoryAsync(Guid categoryId)
+        public async Task<Guid> CreateCategoryWithinParentCategoryNameAsync(CategoryDto category, string parentCategory = null)
         {
-            using (UnitOfWorkProvider.Create())
+            using (var uow = UnitOfWorkProvider.Create())
             {
-                return await _categoryService.GetAsync(categoryId);
+                if (parentCategory != null)
+                {
+                    category.ParentId = (await _categoryService.GetCategoriesIdsAccordingToNameAsync(new[] {parentCategory})).FirstOrDefault();
+                }
+                var categoryId = _categoryService.Create(category);
+                await uow.Commit();
+
+                return categoryId;
             }
         }
 
-        public async Task<IEnumerable<CategoryDto>> GetAllCategories()
+        public async Task<bool> EditCategory(CategoryDto category)
+        {
+            using (var uow = UnitOfWorkProvider.Create())
+            {
+                if (await _categoryService.GetAsync(category.Id, false) == null)
+                {
+                    return false;
+                }
+                await _categoryService.Update(category);
+                await uow.Commit();
+                return true;
+            }
+        }
+
+        public async Task<CategoryDto> GetCategoryAsync(Guid id)
+        {
+            using (UnitOfWorkProvider.Create())
+            {
+                return await _categoryService.GetAsync(id);
+            }
+        }
+
+        public async Task<IEnumerable<CategoryDto>> GetAllCategoriesAsync()
         {
             using (UnitOfWorkProvider.Create())
             {
                 return (await _categoryService.ListAllAsync()).Items;
+            }
+        }
+
+        public async Task<Guid[]> GetCategoryIdsByNameAsync(params string[] names)
+        {
+            using (UnitOfWorkProvider.Create())
+            {
+                return await _categoryService.GetCategoriesIdsAccordingToNameAsync(names);
             }
         }
 

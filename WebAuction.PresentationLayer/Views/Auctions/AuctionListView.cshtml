@@ -13,6 +13,15 @@
 }
 
 <h2>Available Auctions</h2>
+<p>
+    @if (Request.IsAuthenticated)
+    {
+        @Html.ActionLink("Create New", "Create", new {disabled = "dis"})
+    } else
+    {
+        @Html.Raw("Log in to create new auction")
+    }    
+</p>
 
 <div class="panel panel-primary col-md-3 col-sm-4 col-xs-12">
     

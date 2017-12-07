@@ -75,7 +75,7 @@ namespace WebAuction.WebApi.Controllers
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
             }
             var auctionId =
-                await AuctionProcessFacade.CreateAuctionAsync(model.Auction, model.UserEmail, model.CategoryName);
+                await AuctionProcessFacade.CreateAuctionWithCategoryNameForUserAsync(model.Auction, model.UserEmail, model.CategoryName);
             if (auctionId.Equals(Guid.Empty))
             {
                 throw new HttpResponseException(HttpStatusCode.BadRequest);

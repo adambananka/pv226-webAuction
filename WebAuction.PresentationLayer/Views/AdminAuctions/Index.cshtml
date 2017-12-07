@@ -1,0 +1,47 @@
+﻿@using WebAuction.BusinessLayer.DataTransferObjects;
+@model X.PagedList.IPagedList<AuctionDto>
+
+<table class="table">
+    <tr>
+        <th>
+            @nameof(AuctionDto.Name)
+        </th>
+        <th>
+            @nameof(AuctionDto.PhotoUri)
+        </th>
+        <th>
+            @nameof(AuctionDto.StartTime)
+        </th>
+        <th>
+            @nameof(AuctionDto.EndTime)
+        </th>
+        <th>
+            @nameof(AuctionDto.Ended)
+        </th>
+    </tr>
+    
+    @foreach (var auction in Model.ToList())
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => auction.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => auction.PhotoUri)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => auction.StartTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => auction.EndTime)
+            </td>
+            <td>
+                @(auction.Ended ? Html.Raw("yes") : Html.Raw("no"))
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", new {id = auction.Id})
+            </td>
+        </tr>
+
+    }
+</table>

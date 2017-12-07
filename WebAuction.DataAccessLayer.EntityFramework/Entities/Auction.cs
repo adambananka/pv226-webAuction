@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using WebAuction.DataAccessLayer.EntityFramework.Validation;
@@ -56,6 +57,6 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Entities
         public bool Ended { get; set; }
 
         [Range(0, int.MaxValue)]
-        public int DisplayCount { get; set; }
+        public int DisplayCount { get; set; }       
     }
 }

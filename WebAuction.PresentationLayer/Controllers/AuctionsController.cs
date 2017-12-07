@@ -21,10 +21,10 @@ namespace WebAuction.PresentationLayer.Controllers
 
         public AuctionProcessFacade AuctionProcessFacade { get; set; }
 
-
         public async Task<ActionResult> Index(int page = 1)
         {
-            var filter = Session[FilterSessionKey] as AuctionFilterDto ?? new AuctionFilterDto { PageSize = PageSize/*, OnlyActive = true*/};
+            var filter = Session[FilterSessionKey] as AuctionFilterDto ??
+                         new AuctionFilterDto {PageSize = PageSize /*, OnlyActive = true*/};
             filter.RequestedPageNumber = page;
             var result = await AuctionProcessFacade.GetAuctionsAsync(filter);
 
@@ -73,7 +73,30 @@ namespace WebAuction.PresentationLayer.Controllers
             AuctionProcessFacade.MakeBidToAuction(bid);
             return RedirectToAction("Index");
         }
-        
+
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Create(AuctionEditModel model)
+        {
+            try
+            {
+                model.Auction.StartTime = DateTime.Now;
+                model.Auction.Ended = false;
+                model.Auction.SellTime = null;
+                model.Auction.DisplayCount = 0;
+                model.Auction.ActualPrice = 0;
+                await AuctionProcessFacade.CreateAuctionWithCategoryNameForUserAsync(model.Auction, User.Identity.Name,
+                    model.Category.Name);
+                return RedirectToAction("Index");
+            } catch
+            {
+                return View();
+            }
+        }
 
         #region Helper methods
 
@@ -83,12 +106,14 @@ namespace WebAuction.PresentationLayer.Controllers
         /// <param name="result">Auction list query result containing auctions page and related data</param>
         /// <param name="categories">List of category trees</param>
         /// <returns>Initialized instance of AuctionListViewModel</returns>
-        private async Task<AuctionListViewModel> InitializeProductListViewModel(QueryResultDto<AuctionDto, AuctionFilterDto> result, IList<CategoryDto> categories = null)
+        private async Task<AuctionListViewModel> InitializeProductListViewModel(
+            QueryResultDto<AuctionDto, AuctionFilterDto> result, IList<CategoryDto> categories = null)
         {
             return new AuctionListViewModel
             {
-                Auctions = new StaticPagedList<AuctionDto>(result.Items, result.RequestedPageNumber ?? 1, PageSize, (int)result.TotalItemsCount),
-                Categories = categories ?? await AuctionProcessFacade.GetAllCategories() as IList<CategoryDto>,
+                Auctions = new StaticPagedList<AuctionDto>(result.Items, result.RequestedPageNumber ?? 1, PageSize,
+                    (int) result.TotalItemsCount),
+                Categories = categories ?? await AuctionProcessFacade.GetAllCategoriesAsync() as IList<CategoryDto>,
                 Filter = result.Filter
             };
         }

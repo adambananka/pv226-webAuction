@@ -14,7 +14,7 @@ namespace WebAuction.BusinessLayer.Services.Categories
         /// </summary>
         /// <param name="names">category names</param>
         /// <returns>Categories with given names</returns>
-        Task<IEnumerable<CategoryDto>> GetCategoriesAccordingToNameAsync(string[] names);
+        Task<Guid[]> GetCategoriesIdsAccordingToNameAsync(string[] names);
 
         /// <summary>
         /// Gets DTO representing the entity according to ID

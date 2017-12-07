@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using WebAuction.BusinessLayer.DataTransferObjects;
@@ -22,13 +22,13 @@ namespace WebAuction.BusinessLayer.Services.Categories
 
         protected override async Task<Category> GetWithIncludesAsync(Guid entityId)
         {
-            return await Repository.GetAsync(entityId);
+            return await Repository.GetAsync(entityId, nameof(Category.Parent));
         }
 
-        public async Task<IEnumerable<CategoryDto>> GetCategoriesAccordingToNameAsync(string[] names)
+        public async Task<Guid[]> GetCategoriesIdsAccordingToNameAsync(string[] names)
         {
             var queryResult = await Query.ExecuteQuery(new CategoryFilterDto {Names = names});
-            return queryResult.Items;
+            return queryResult.Items.Select(category => category.Id).ToArray();
         }
     }
 }

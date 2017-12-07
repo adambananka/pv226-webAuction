@@ -1,6 +1,5 @@
 ﻿using System.Data.Common;
 using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
 using WebAuction.DataAccessLayer.EntityFramework.Config;
 using WebAuction.DataAccessLayer.EntityFramework.Entities;
 using WebAuction.DataAccessLayer.EntityFramework.Initializers;
@@ -26,7 +25,9 @@ namespace WebAuction.DataAccessLayer.EntityFramework
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+            modelBuilder.Entity<Bid>().HasRequired(bid => bid.Buyer).WithMany().WillCascadeOnDelete(false);
+            modelBuilder.Entity<Comment>().HasRequired(comment => comment.User).WithMany().WillCascadeOnDelete(false);
+            modelBuilder.Entity<Payment>().HasRequired(payment => payment.Buyer).WithMany().WillCascadeOnDelete(false);
         }
 
         public DbSet<Auction> Auctions { get; set; }

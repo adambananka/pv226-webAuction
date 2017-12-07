@@ -80,7 +80,7 @@ namespace WebAuction.PresentationLayer.Controllers
             return View();
         }
 
-        public async Task<ActionResult> Logout()
+        public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");

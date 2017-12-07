@@ -9,6 +9,7 @@ using WebAuction.BusinessLayer.Services.Common;
 using WebAuction.DataAccessLayer.EntityFramework.Entities;
 using WebAuction.Infrastructure;
 using WebAuction.Infrastructure.Query;
+using Auction = WebAuction.DataAccessLayer.EntityFramework.Entities.Auction;
 
 namespace WebAuction.BusinessLayer.Services.Bids
 {

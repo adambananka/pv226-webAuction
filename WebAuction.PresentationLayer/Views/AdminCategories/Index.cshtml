@@ -1,0 +1,59 @@
+﻿@using WebAuction.BusinessLayer.DataTransferObjects;
+@using X.PagedList.Mvc
+@model X.PagedList.IPagedList<CategoryDto>
+
+@{
+    ViewBag.Title = "Categories";
+}
+
+<p margin-top="10px">
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @nameof(CategoryDto.Name)
+        </th>
+        <th>
+            @nameof(CategoryDto.Description)
+        </th>
+        <th>
+            Parent category
+        </th>
+        <th>
+            @nameof(CategoryDto.CategoryPath)
+        </th>
+    </tr>
+
+    @foreach (var item in Model.ToList()) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @if (item.HasParent)
+                {
+                    @Html.DisplayFor(modelItem => item.Parent.Name)
+                } else
+                {
+                    @Html.Raw("-")
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryPath)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div class="col-md-12">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+</div>
