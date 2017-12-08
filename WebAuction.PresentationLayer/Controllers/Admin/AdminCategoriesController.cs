@@ -59,8 +59,11 @@ namespace WebAuction.PresentationLayer.Controllers.Admin
         {
             try
             {
-                model.Category.ParentId =
-                    (await AuctionFacade.GetCategoryIdsByNameAsync(model.ParentCategory)).SingleOrDefault();
+                if (model.ParentCategory != null)
+                {
+                    model.Category.ParentId =
+                        (await AuctionFacade.GetCategoryIdsByNameAsync(model.ParentCategory)).SingleOrDefault();
+                }
                 await AuctionFacade.EditCategory(model.Category);
                 return RedirectToAction("Index");
             } catch
