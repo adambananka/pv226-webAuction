@@ -1,5 +1,6 @@
 ﻿using System;
 using WebAuction.BusinessLayer.DataTransferObjects.Common;
+using WebAuction.DataAccessLayer.EntityFramework.Validation;
 
 namespace WebAuction.BusinessLayer.DataTransferObjects
 {
@@ -11,6 +12,7 @@ namespace WebAuction.BusinessLayer.DataTransferObjects
 
         public DateTime Time { get; set; }
 
+        [PositiveDecimal]
         public decimal BidAmount { get; set; }
 
         public decimal NewItemPrice { get; set; }

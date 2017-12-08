@@ -59,23 +59,20 @@ namespace WebAuction.PresentationLayer.Controllers
             var model = new AuctionDetailViewModel
             {
                 Auction = await AuctionProcessFacade.GetAuctionAsync(id),
+                NewBid = new BidDto(),
                 Comments = (await UserInteractionFacade.GetCommentsAccordingToAuction(id)).ToList()
             };
+            model.NewBid.BidAmount = model.Auction.MinimalBid;
             return View("AuctionDetailView", model);
         }
 
-        public ActionResult MakeBid(AuctionDto auction, string bidAmount, string strBidderId)
+        [HttpPost]
+        public ActionResult MakeBid(AuctionDetailViewModel model)
         {
-            var bidderId = Guid.Parse(strBidderId);
-            var bid = new BidDto
-            {
-                AuctionId = auction.Id,
-                BidAmount = decimal.Parse(bidAmount),
-                BuyerId = bidderId,
-                NewItemPrice = auction.ActualPrice + decimal.Parse(bidAmount),
-                Time = DateTime.Now
-            };
-            AuctionProcessFacade.MakeBidToAuction(bid);
+            model.NewBid.AuctionId = model.Auction.Id;
+            model.NewBid.NewItemPrice = model.Auction.ActualPrice + model.NewBid.BidAmount;
+            model.NewBid.Time = DateTime.Now;
+            AuctionProcessFacade.MakeBidToAuction(model.NewBid);
             return RedirectToAction("Index");
         }
 
