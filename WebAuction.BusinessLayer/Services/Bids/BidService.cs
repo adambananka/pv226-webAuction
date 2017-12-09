@@ -42,15 +42,14 @@ namespace WebAuction.BusinessLayer.Services.Bids
 
         public async Task PlaceBid(BidDto bidDto)
         {
-            var bid = Mapper.Map<Bid>(bidDto);
-
             var auction = await _auctionRepository.GetAsync(bidDto.AuctionId);
             if (auction == null)
             {
                 throw new ArgumentException("Bidding Service - PlacedBid() - Auction must not be null");
             }
 
-            auction.ActualPrice = bid.NewItemPrice;
+            Create(bidDto);
+            auction.ActualPrice = bidDto.NewItemPrice;
             _auctionRepository.Update(auction);
         }
     }

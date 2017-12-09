@@ -15,6 +15,7 @@ namespace WebAuction.BusinessLayer.DataTransferObjects
         [PositiveDecimal]
         public decimal BidAmount { get; set; }
 
+        [PositiveDecimal]
         public decimal NewItemPrice { get; set; }
 
         public override string ToString()

@@ -149,7 +149,7 @@ namespace WebAuction.BusinessLayer.Facades
             }
         }
 
-        public async void MakeBidToAuction(BidDto bid)
+        public async Task MakeBidToAuction(BidDto bid)
         {
             using (var uow = UnitOfWorkProvider.Create())
             {
@@ -162,7 +162,7 @@ namespace WebAuction.BusinessLayer.Facades
 
         #region ClosingAuction
 
-        public async void BuyoutAuction(AuctionDto auction, BidDto bid)
+        public async Task BuyoutAuction(AuctionDto auction, BidDto bid)
         {
             using (var uow = UnitOfWorkProvider.Create())
             {

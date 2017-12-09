@@ -19,12 +19,12 @@ namespace WebAuction.BusinessLayer.Services.UserLogins
         private const int Pbkdf2SubkeyLength = 160 / 8;
         private const int SaltSize = 128 / 8;
 
-        private readonly IRepository<User> _userRepository;
+        private readonly IRepository<UserLogin> _userRepository;
 
         private readonly QueryObjectBase<UserLoginDto, UserLogin, UserLoginFilterDto, IQuery<UserLogin>>
             _userLoginQueryObjectBase;
 
-        public UserLoginService(IMapper mapper, IRepository<User> userRepository,
+        public UserLoginService(IMapper mapper, IRepository<UserLogin> userRepository,
             QueryObjectBase<UserLoginDto, UserLogin, UserLoginFilterDto, IQuery<UserLogin>> userLoginQueryObjectBase)
             : base(mapper)
         {

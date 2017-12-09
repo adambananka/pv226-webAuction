@@ -21,6 +21,7 @@ namespace WebAuction.PresentationLayer.Controllers
 
         public AuctionProcessFacade AuctionProcessFacade { get; set; }
         public UserInteractionFacade UserInteractionFacade { get; set; }
+        public UserFacade UserFacade { get; set; }
 
         public async Task<ActionResult> Index(int page = 1)
         {
@@ -60,6 +61,7 @@ namespace WebAuction.PresentationLayer.Controllers
             {
                 Auction = await AuctionProcessFacade.GetAuctionAsync(id),
                 NewBid = new BidDto(),
+                Bids = (await AuctionProcessFacade.GetBidsToAuctionAsync(id)).ToList(),
                 Comments = (await UserInteractionFacade.GetCommentsAccordingToAuction(id)).ToList()
             };
             model.NewBid.BidAmount = model.Auction.MinimalBid;
@@ -67,12 +69,29 @@ namespace WebAuction.PresentationLayer.Controllers
         }
 
         [HttpPost]
-        public ActionResult MakeBid(AuctionDetailViewModel model)
+        public async Task<ActionResult> MakeBid(AuctionDetailViewModel model)
         {
             model.NewBid.AuctionId = model.Auction.Id;
+            model.NewBid.BuyerId = UserFacade.GetUserAccordingToUsernameAsync(User.Identity.Name).Result.Id;
             model.NewBid.NewItemPrice = model.Auction.ActualPrice + model.NewBid.BidAmount;
             model.NewBid.Time = DateTime.Now;
-            AuctionProcessFacade.MakeBidToAuction(model.NewBid);
+            await AuctionProcessFacade.MakeBidToAuction(model.NewBid);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Buyout(AuctionDetailViewModel model)
+        {
+            var auction = await AuctionProcessFacade.GetAuctionAsync(model.Auction.Id);
+            var bid = new BidDto
+            {
+                AuctionId = auction.Id,
+                BuyerId = UserFacade.GetUserAccordingToUsernameAsync(User.Identity.Name).Result.Id,
+                BidAmount = auction.BuyoutPrice - auction.ActualPrice,
+                NewItemPrice = auction.BuyoutPrice,
+                Time = DateTime.Now
+            };
+            await AuctionProcessFacade.BuyoutAuction(auction, bid);
             return RedirectToAction("Index");
         }
 

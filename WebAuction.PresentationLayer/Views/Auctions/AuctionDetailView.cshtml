@@ -1,5 +1,4 @@
-﻿@using Microsoft.AspNet.Identity;
-@model WebAuction.PresentationLayer.Models.Auctions.AuctionDetailViewModel
+﻿@model WebAuction.PresentationLayer.Models.Auctions.AuctionDetailViewModel
 
 @{
     ViewBag.Title = "Auction";
@@ -25,31 +24,22 @@
 
         @if (User.Identity.IsAuthenticated)
         {
-            <div class="form-group">
+            <div>
                 @using (Html.BeginForm("MakeBid", "Auctions", FormMethod.Post))
                 {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true, "", new {@class = "text-danger"})
 
-                    //Model.NewBid.BuyerId = Guid.Parse(User.Identity.GetUserId());
-                    <div class="form-group">
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.NewBid.BidAmount)
-                            @Html.ValidationMessageFor(model => model.NewBid.BidAmount, "", new {@class = "text-danger"})
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Make Bid" class="btn btn-default"/>
-                        </div>
-                    </div>
+                    @Html.HiddenFor(model => model.Auction.ActualPrice)
+                    @Html.HiddenFor(model => model.Auction.Id)
+                    @Html.EditorFor(model => model.NewBid.BidAmount, new {htmlAttributes = new {@class = "form-control"}})
+                    @Html.ValidationMessageFor(model => model.NewBid.BidAmount, "", new {@class = "text-danger"})
+                    <button type="submit">Make Bid</button>
                 }
             </div>
         }
 
-
-@*<div class="row">
+        @*<div class="row">
         <div class="input-group">
             <span class="input-group-btn">
                 <button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
@@ -68,9 +58,23 @@
                 </button>
             </span>
         </div>
-    </div>*@<div class="row">
+    </div>*@
+        
+        <div class="row">
             <b>Price: </b>@Html.DisplayFor(model => Model.Auction.ActualPrice)
         </div>
+
+        <div class="row">
+            <b>Buyout price: </b>@Html.DisplayFor(model => model.Auction.BuyoutPrice)
+        </div>
+        @if (User.Identity.IsAuthenticated)
+        {
+            using (Html.BeginForm("Buyout", "Auctions", FormMethod.Post))
+            {
+                @Html.HiddenFor(model => model.Auction.Id)
+                <button type="submit">Buyout</button>
+            }
+        }
     </div>
 </div>
 <div class="row">
@@ -87,6 +91,20 @@
         </div>
     </div>
 </div>
+
+<div class="row">
+    <h4>Bids:</h4>
+</div>
+<div class="row">
+    @foreach (var bid in Model.Bids)
+    {
+        <p>
+            @bid.Time
+            @bid.BidAmount
+        </p>
+    }
+</div>
+
 <div class="row">
     <h4>Comments:</h4>
 </div>

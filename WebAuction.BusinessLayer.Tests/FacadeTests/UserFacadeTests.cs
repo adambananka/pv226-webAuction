@@ -80,11 +80,12 @@ namespace WebAuction.BusinessLayer.Tests.FacadeTests
             var uowMock = FacadeMockManager.GetUowMock();
             var mapperMock = FacadeMockManager.GetMapper();
             var repositoryMock = mockFacadeManager.GetRepositoryMock<User>();
+            var repositoryLoginMock = mockFacadeManager.GetRepositoryMock<UserLogin>();
             var userQueryObjectMock = mockFacadeManager.GetQueryObjectMock<UserDto, User, UserFilterDto>(result);
             var userLoginQueryObjectMock =
                 mockFacadeManager.GetQueryObjectMock<UserLoginDto, UserLogin, UserLoginFilterDto>(null);
             var userService = new UserService(mapperMock, repositoryMock.Object, userQueryObjectMock.Object);
-            var userLoginService = new UserLoginService(mapperMock, repositoryMock.Object,
+            var userLoginService = new UserLoginService(mapperMock, repositoryLoginMock.Object,
                 userLoginQueryObjectMock.Object);
 
             var userFacade = new UserFacade(uowMock.Object, userService, userLoginService);
