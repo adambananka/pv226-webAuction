@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Hangfire;
 using WebAuction.BusinessLayer.DataTransferObjects;
 using WebAuction.BusinessLayer.DataTransferObjects.Common;
 using WebAuction.BusinessLayer.DataTransferObjects.Filters;
@@ -104,6 +105,8 @@ namespace WebAuction.BusinessLayer.Facades
                 auction.SellerId = (await _userLoginService.GetUserAccordingToUsernameAsync(userLogin)).Id;
                 var auctionId = _auctionService.Create(auction);
                 await uow.Commit();
+                var delay = auction.EndTime.Subtract(DateTime.Now);
+                BackgroundJob.Schedule(() => CloseAuctionDueToTimeout(auction), delay);
                 return auctionId;
             }
         }

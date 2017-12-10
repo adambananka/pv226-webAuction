@@ -5,6 +5,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
 using Castle.Windsor;
+using Hangfire;
 using WebAuction.BusinessLayer.Config;
 using WebAuction.PresentationLayer.Windsor;
 
@@ -16,6 +17,9 @@ namespace WebAuction.PresentationLayer
 
         protected void Application_Start()
         {
+            GlobalConfiguration.Configuration
+                .UseSqlServerStorage("Data source=(localdb)\\mssqllocaldb;Database=WebAuctionSample;Trusted_Connection=True;MultipleActiveResultSets=true");
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

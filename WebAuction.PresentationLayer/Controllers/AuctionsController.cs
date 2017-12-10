@@ -72,7 +72,7 @@ namespace WebAuction.PresentationLayer.Controllers
         public async Task<ActionResult> MakeBid(AuctionDetailViewModel model)
         {
             model.NewBid.AuctionId = model.Auction.Id;
-            model.NewBid.BuyerId = UserFacade.GetUserAccordingToUsernameAsync(User.Identity.Name).Result.Id;
+            model.NewBid.BuyerId = (await UserFacade.GetUserAccordingToUsernameAsync(User.Identity.Name)).Id;
             model.NewBid.NewItemPrice = model.Auction.ActualPrice + model.NewBid.BidAmount;
             model.NewBid.Time = DateTime.Now;
             await AuctionProcessFacade.MakeBidToAuction(model.NewBid);
@@ -86,7 +86,7 @@ namespace WebAuction.PresentationLayer.Controllers
             var bid = new BidDto
             {
                 AuctionId = auction.Id,
-                BuyerId = UserFacade.GetUserAccordingToUsernameAsync(User.Identity.Name).Result.Id,
+                BuyerId = (await UserFacade.GetUserAccordingToUsernameAsync(User.Identity.Name)).Id,
                 BidAmount = auction.BuyoutPrice - auction.ActualPrice,
                 NewItemPrice = auction.BuyoutPrice,
                 Time = DateTime.Now

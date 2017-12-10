@@ -22,7 +22,7 @@
     
     @foreach (var auction in Model.ToList())
     {
-        <tr>
+        <tr @("onclick=GoToDetail('" + auction.Id + "')") style="cursor: pointer">
             <td>
                 @Html.DisplayFor(modelItem => auction.Name)
             </td>
@@ -45,3 +45,9 @@
 
     }
 </table>
+
+<script>
+    function GoToDetail(id) {
+        window.location = "/Auctions/Details/" + id;
+    }
+</script>

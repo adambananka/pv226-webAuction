@@ -166,7 +166,7 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
                 MinimalBid = 10,
                 BuyoutPrice = 30000,
                 StartTime = DateTime.Now.AddDays(-2).Date + GetRandomDayTime(),
-                EndTime = DateTime.Now.AddDays(5).Date + new TimeSpan(18, 0, 0),
+                EndTime = DateTime.Now + new TimeSpan(0, 2, 0),
                 SellTime = null,
                 HandoverOptions = "Definitely not by postal service.",
                 Ended = false,
