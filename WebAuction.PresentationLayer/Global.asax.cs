@@ -17,15 +17,15 @@ namespace WebAuction.PresentationLayer
 
         protected void Application_Start()
         {
-            GlobalConfiguration.Configuration
-                .UseSqlServerStorage("Data source=(localdb)\\mssqllocaldb;Database=WebAuctionSample;Trusted_Connection=True;MultipleActiveResultSets=true");
-
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             BootstrapContainer();
+
+            //GlobalConfiguration.Configuration
+            //    .UseSqlServerStorage(@"Data source=(localdb)\mssqllocaldb; Database=WebAuctionSample; Trusted_Connection=True; MultipleActiveResultSets=true");
         }
 
         private void BootstrapContainer()

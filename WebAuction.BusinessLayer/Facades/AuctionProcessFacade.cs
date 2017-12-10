@@ -105,8 +105,9 @@ namespace WebAuction.BusinessLayer.Facades
                 auction.SellerId = (await _userLoginService.GetUserAccordingToUsernameAsync(userLogin)).Id;
                 var auctionId = _auctionService.Create(auction);
                 await uow.Commit();
-                var delay = auction.EndTime.Subtract(DateTime.Now);
-                BackgroundJob.Schedule(() => CloseAuctionDueToTimeout(auction), delay);
+                //var delay = auction.EndTime.Subtract(DateTime.Now);
+                //BackgroundJob.Schedule(() => CloseAuctionDueToTimeoutAsync(auction), delay);
+                //BackgroundJob.Schedule(() => new Func<AuctionDto, Task>(CloseAuctionDueToTimeoutAsync).Invoke(auction), auction.EndTime);
                 return auctionId;
             }
         }
@@ -178,7 +179,7 @@ namespace WebAuction.BusinessLayer.Facades
             }
         }
 
-        public async void CloseAuctionDueToTimeout(AuctionDto auction)
+        public async Task CloseAuctionDueToTimeoutAsync(AuctionDto auction)
         {
             using (var uow = UnitOfWorkProvider.Create())
             {

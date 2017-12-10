@@ -9,5 +9,6 @@ namespace WebAuction.PresentationLayer.Models.Auctions
         public BidDto NewBid { get; set; }
         public IList<BidDto> Bids { get; set; }
         public IList<CommentDto> Comments { get; set; }
+        public CommentDto NewComment { get; set; }
     }
 }

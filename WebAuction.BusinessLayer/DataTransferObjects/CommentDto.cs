@@ -9,6 +9,8 @@ namespace WebAuction.BusinessLayer.DataTransferObjects
 
         public Guid UserId { get; set; }
 
+        public string Username { get; set; }
+
         public DateTime Time { get; set; }
 
         public string Text { get; set; }

@@ -61,8 +61,9 @@ namespace WebAuction.PresentationLayer.Controllers
             {
                 Auction = await AuctionProcessFacade.GetAuctionAsync(id),
                 NewBid = new BidDto(),
-                Bids = (await AuctionProcessFacade.GetBidsToAuctionAsync(id)).ToList(),
-                Comments = (await UserInteractionFacade.GetCommentsAccordingToAuction(id)).ToList()
+                Bids = (await AuctionProcessFacade.GetBidsToAuctionAsync(id)).OrderBy(bid => bid.Time).ToList(),
+                Comments = (await UserInteractionFacade.GetCommentsAccordingToAuction(id)).OrderBy(com => com.Time).ToList(),
+                NewComment = new CommentDto()
             };
             model.NewBid.BidAmount = model.Auction.MinimalBid;
             return View("AuctionDetailView", model);
@@ -95,6 +96,31 @@ namespace WebAuction.PresentationLayer.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public async Task<ActionResult> Comment(AuctionDetailViewModel model)
+        {
+            try
+            {
+                model.NewComment.AuctionId = model.Auction.Id;
+                model.NewComment.Username = User.Identity.Name;
+                model.NewComment.UserId = (await UserFacade.GetUserAccordingToUsernameAsync(User.Identity.Name)).Id;
+                model.NewComment.Time = DateTime.Now;
+                await UserInteractionFacade.CreateComment(model.NewComment);
+                return RedirectToAction("Details", new { id = model.Auction.Id });
+            }
+            catch
+            {
+                return RedirectToAction("Details", new {id = model.Auction.Id});
+            }
+            
+        }
+
+        public async Task<ActionResult> DeleteComment(Guid commentId, Guid auctionId)
+        {
+            await UserInteractionFacade.DeleteComment(commentId);
+            return RedirectToAction("Details", new { id = auctionId });
+        }
+
         public ActionResult Create()
         {
             return View();
@@ -109,7 +135,7 @@ namespace WebAuction.PresentationLayer.Controllers
                 model.Auction.Ended = false;
                 model.Auction.SellTime = null;
                 model.Auction.DisplayCount = 0;
-                model.Auction.ActualPrice = 0;
+                model.Auction.ActualPrice = model.Auction.StartingPrice;
                 await AuctionProcessFacade.CreateAuctionWithCategoryNameForUserAsync(model.Auction, User.Identity.Name,
                     model.Category.Name);
                 return RedirectToAction("Index");

@@ -292,7 +292,8 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
                 AuctionId = longclawAuction.Id,
                 Text = "How many white walkers have you killed with this claw?",
                 User = waltWhite,
-                UserId = waltWhite.Id
+                UserId = waltWhite.Id,
+                Username = waltWhite.Username
             };
             var childComment1 = new Comment
             {
@@ -302,7 +303,8 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Initializers
                 AuctionId = longclawAuction.Id,
                 Text = "Too many to count",
                 User = jonSnow,
-                UserId = jonSnow.Id
+                UserId = jonSnow.Id,
+                Username = jonSnow.Username
             };
             context.Comments.AddOrUpdate(comment => comment.Id, rootComment1, childComment1);
 

@@ -21,6 +21,8 @@ namespace WebAuction.DataAccessLayer.EntityFramework.Entities
         [ForeignKey(nameof(User))]
         public Guid UserId { get; set; }
 
+        public string Username { get; set; }
+
         public virtual User User { get; set; }
 
         public DateTime Time { get; set; }
